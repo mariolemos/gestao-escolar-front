@@ -1,6 +1,6 @@
 export const api = () => {
 
-    const GETRequest = async (path: string) => {
+    const GETRequest = async <T>(path: string) : Promise<T | null> => {
         try {
 
             const response = await fetch(path, {
@@ -11,9 +11,8 @@ export const api = () => {
             return result
         } catch (erro) {
             console.error(erro)
-        }
+        }      
         return null
-
     }
     return {
         GETRequest
