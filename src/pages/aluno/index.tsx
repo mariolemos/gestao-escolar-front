@@ -1,5 +1,5 @@
 
-import Aluno from "@/layout/components/Aluno/Aluno";
+import Aluno from "@/layout/components/aluno/Aluno";
 
 export default function aluno() {
     return (

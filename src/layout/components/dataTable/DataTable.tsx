@@ -7,13 +7,14 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-export const DataTable = ({ data }: any) => {
+export const DataTable = ({ data }: any) => {    
     return (
         <>
-            <TableContainer component={Paper}>
+        
+            <TableContainer component={Paper} >
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
+                    <TableHead >
+                        <TableRow >
                             {data.cols?.map((col: any) => (
                                 <TableCell >{col}</TableCell>
                             ))}
@@ -27,17 +28,14 @@ export const DataTable = ({ data }: any) => {
                             >
                                 {Object.values(row).map(value => {
                                     return <TableCell > {value}</TableCell>
-                                })
+                                })                             
 
                                 }
-
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-
-
         </>
     )
 }

@@ -1,4 +1,4 @@
-import MenuAppBar from "@/layout/components/navigation/NaveBar";
+import MenuAppBar from "@/layout/components/navigation/MenuAppBar";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 

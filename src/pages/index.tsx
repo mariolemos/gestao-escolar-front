@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
-import MenuAppBar from "@/layout/components/navigation/NaveBar";
+import MenuAppBar from "@/layout/components/navigation/MenuAppBar";
+import BasicModal from "@/layout/components/modal/BasicModal";
+import { Alert } from "@mui/material";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,7 +17,8 @@ const geistMono = Geist_Mono({
 export default function Home() {
   return (
     <div>      
-          <h1>Página Principal</h1>    
+          <BasicModal mensage={"Testando o modal"}></BasicModal> 
+          <Alert/>   
     </div>
   );
 }

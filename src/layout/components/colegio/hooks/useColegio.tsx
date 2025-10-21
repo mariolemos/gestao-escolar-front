@@ -1,0 +1,72 @@
+import { api } from "@/application/api/api"
+import { useEffect, useState } from "react"
+import { Link } from "@mui/material"
+import { IconeEditar, IconeExcluir } from "@/icon";
+
+interface IColegio {
+    id: number,
+    nome: string,
+    horario: string,
+    alunos?: string,
+    contatos: string,
+    endereco: string,
+    editar?: React.ReactNode,
+    excluir?: React.ReactNode,
+}
+
+export const useColegio = () => {
+    const [rows, setRows] = useState<IColegio[]>([]);
+    const cols = [
+        "Id",
+        "Nome",
+        "Horário",
+        "Contatos",
+        "Endereço",
+        "Editar",
+        "Excluir"
+    ]
+
+    const {
+        GETRequest
+    } = api()
+
+    const converteToColegio = (array: IColegio[]) => {
+        const novoArray: IColegio[] = []
+        array.map(colegio => {
+            let novoColegio: IColegio = {
+                id: colegio.id,
+                nome: colegio.nome,
+                horario: colegio.horario,
+                contatos: colegio.contatos,
+                endereco: colegio.endereco,
+                editar: (<Link href={`colegio/formColegio?id=${colegio.id}`} > <IconeEditar /></Link >),
+                excluir: (
+                    <Link href={`aluno/formAluno?id=${colegio.id}`
+                    }> <IconeExcluir /></Link >
+                )
+            }
+            novoArray.push(novoColegio)
+        })
+        return novoArray
+    }
+    const buscarColegio = async () => {
+
+        const response = await GETRequest<IColegio[]>("/colegio")
+        setRows(converteToColegio(response ?? []))
+        console.log("*****", response)
+    }
+
+    useEffect(() => {
+        buscarColegio()
+    }, [])
+
+    return {
+        data: {
+            rows,
+            cols,
+        },
+        action: {
+            setRows,
+        }
+    }
+}
