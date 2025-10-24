@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import { useFormAluno } from '../../../layout/components/aluno/formAluno/hooks/useFormAluno';
 import { useFormColegio } from '@/layout/components/colegio/formColegio/hooks/useFormaColegio';
 import colegio from '..';
+import FormEndereco from '@/components/endereco/form';
 
 
 export default function FormColegio() {
@@ -76,21 +77,10 @@ export default function FormColegio() {
                             label="Contatos"
                             style={{ width: "65ch", margin: "10px" }}
                             defaultValue={colegio.contatos}
-                        />
-                        <TextField
-                            onChange={(e) => setColegio((colegio) => {
-                                return {
-                                    ...colegio, endereco: e.target.value
-                                }
-                            })}
-                            slotProps={{ inputLabel: { shrink: true } }}
-                            size='small'
-                            required
-                            label="Endereço"
-                            style={{ width: "65ch", margin: "10px" }}
-                            defaultValue={colegio.endereco}
-                        />                    
-                        
+                        />                                           
+                        <FormEndereco endereco={colegio.endereco} onChange={function (): void {
+                            throw new Error('Function not implemented.');
+                        } } />
                         <Button variant="contained"
                             onClick={registrar}
                             style={{ width: "67ch", margin: "10px", height: "40px" }}

@@ -17,8 +17,7 @@ const geistMono = Geist_Mono({
 export default function Home() {
   return (
     <div>      
-          <BasicModal mensage={"Testando o modal"}></BasicModal> 
-          <Alert/>   
+          <h1>Tela Principal</h1>   
     </div>
   );
 }

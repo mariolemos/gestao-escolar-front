@@ -32,7 +32,9 @@ export const api = () => {
         // } else {
         //     BasicModal({ mensage: erro?.mensage })
         // }
-        BasicModal({ mensage: erro?.mensage })
+        //BasicModal({ mensage: erro?.mensage })
+        alert("Erro")
+        
     }
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
