@@ -1,8 +1,8 @@
-import Image from "next/image";
+
+import { FormLabel } from "@mui/material";
 import { Geist, Geist_Mono } from "next/font/google";
-import MenuAppBar from "@/layout/components/navigation/MenuAppBar";
-import BasicModal from "@/layout/components/modal/BasicModal";
-import { Alert } from "@mui/material";
+
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,8 +16,10 @@ const geistMono = Geist_Mono({
 
 export default function Home() {
   return (
-    <div>      
-          <h1>Tela Principal</h1>   
-    </div>
-  );
+    <>
+      <h1 style={{bgcolor: "#ccc"}}>Tela Principal</h1>   
+      <FormLabel sx={{bgcolor: "#ccc"}}> Caixa de Seleção </FormLabel>  
+      
+    </>
+  )
 }
