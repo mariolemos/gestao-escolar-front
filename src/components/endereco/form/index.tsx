@@ -1,6 +1,6 @@
-import { Box, FormControl, TextField } from "@mui/material"
+import { Box, TextField } from "@mui/material"
 import { useFormEndereco } from "./hooks/useFormEndereco"
-import { useState } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 
 export interface IFormEndereco {
 
@@ -15,15 +15,13 @@ export interface IFormEndereco {
 
 interface PropsFormEndereco {
     endereco: IFormEndereco,
-    onChange: () => void
+    setEndereco: Dispatch<SetStateAction<IFormEndereco>>
 }
 
 export default function FormEndereco({
     endereco,
-    onChange
+    setEndereco
 }: PropsFormEndereco) {
-
-    //const [endereco, setEndereco] = useState<IFormEndereco>();
 
     const {
         data: {
@@ -38,85 +36,61 @@ export default function FormEndereco({
 
     return (
         <>
-            <Box sx={{}}>
-                <h1 style={{ textAlign: "center" }}>Endereço</h1>
-                <Box>
-                   <Box>
-                    <TextField
-                            onChange={onChange}
-                            slotProps={{ inputLabel: { shrink: true } }}
-                            size='small'
-                            required
-                            label="Cep"
-                            sx={{width: "10%", m: "0ch 1ch 1ch 1ch"}}
-                            defaultValue={endereco.cep}
-
-                        />                        
-                        <TextField
-                            onChange={onChange}
-                            slotProps={{ inputLabel: { shrink: true } }}
-                            size='small'
-                            required
-                            label="Cidade"
-                            sx={{width: "40%", marginRight: 1}}
-                            defaultValue={endereco.cidade}                            
-                        />
-                        <TextField
-                            onChange={onChange}
-                            slotProps={{ inputLabel: { shrink: true } }}
-                            size='small'
-                            required
-                            label="Estado"
-                            sx={{width: "46%" }}
-                            defaultValue={endereco.estado}
-                        />
-                   </Box>                                            
-                    
-                        <TextField
-                            onChange={onChange}
-                            slotProps={{ inputLabel: { shrink: true } }}
-                            size='small'
-                            required={true}
-                            label="Logradouro "
-                            sx={{ width: "40%",  m: "0ch 1ch 1ch 1ch" }}
-                            defaultValue={endereco.logradouro}
-                            type='string'
-                        />
-                        <TextField
-                            onChange={onChange}
-                            slotProps={{ inputLabel: { shrink: true } }}
-                            size='small'
-                            required
-                            label="Complemento"
-                            sx={{ width: "20%", marginRight: 1}}
-                            defaultValue={endereco.complemento}
-                        />
-                        <TextField
-                            onChange={onChange}
-                            slotProps={{ inputLabel: { shrink: true } }}
-                            size='small'
-                            required
-                            label="Número"
-                            sx={{ width: "10%",marginRight: 1 }}
-                            defaultValue={endereco.numero}
-                        />
-                        <TextField
-                            onChange={onChange}
-                            slotProps={{ inputLabel: { shrink: true } }}
-                            size='small'
-                            required
-                            label="Bairro"
-                            sx={{ width: "25%", marginRight: 1}}
-                            defaultValue={endereco.bairro}
-                        />
-                   
-
-
-
-
-
-                </Box>
-
+            <Box >
+                Endereço
+                <TextField
+                    onChange={(e) => setEndereco((endereco) => {
+                        return {
+                            ...endereco, logradouro: e.target.value
+                        }
+                    })}
+                    slotProps={{ inputLabel: { shrink: true } }}
+                    size='small'
+                    required={true}
+                    label="Nome "
+                    style={{ width: "65ch", margin: "10px" }}
+                    defaultValue={endereco.logradouro}
+                    type='string'
+                />
+                <TextField
+                    onChange={(e) => setEndereco((endereco) => {
+                        return {
+                            ...endereco, logradouro: e.target.value
+                        }
+                    })}
+                    slotProps={{ inputLabel: { shrink: true } }}
+                    size='small'
+                    required
+                    label="Horário"
+                    style={{ width: "65ch", margin: "10px" }}
+                    defaultValue={endereco.complemento}
+                />
+                <TextField
+                    onChange={(e) => setEndereco((endereco) => {
+                        return {
+                            ...endereco, logradouro: e.target.value
+                        }
+                    })}
+                    slotProps={{ inputLabel: { shrink: true } }}
+                    size='small'
+                    required
+                    label="Contatos"
+                    style={{ width: "65ch", margin: "10px" }}
+                    defaultValue={endereco.numero}
+                />
+                <TextField
+                    onChange={(e) => setEndereco((endereco) => {
+                        return {
+                            ...endereco, logradouro: e.target.value
+                        }
+                    })}
+                    slotProps={{ inputLabel: { shrink: true } }}
+                    size='small'
+                    required
+                    label="Endereço"
+                    style={{ width: "65ch", margin: "10px" }}
+                    defaultValue={endereco.bairro}
+                />
             </Box>
         </>
 

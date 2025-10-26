@@ -16,8 +16,8 @@ export default function FormColegio() {
         },
         action: {
             registrar,
-            setColegio
-
+            setColegio,
+            setEndereco
         }
     } = useFormColegio()
 
@@ -27,46 +27,44 @@ export default function FormColegio() {
             <Box sx={{
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "center",            
-                
+                justifyContent: "center",
+
             }} >
 
-                <Box sx={{display: "flex"}}>
-                      <TextField
-                    onChange={(e) => setColegio((colegio) => {
-                        return {
-                            ...colegio, nome: e.target.value
-                        }
-                    })}
-                    slotProps={{ inputLabel: { shrink: true } }}
-                    size='small'
-                    required={true}
-                    label="Nome "
-                    style={{ width: "65ch", margin: "10px" }}
-                    defaultValue={colegio.nome}
-                    type='string'
-                />
-                <TextField
-                    onChange={(e) => setColegio((colegio) => {
-                        return {
-                            ...colegio, horario: e.target.value
-                        }
-                    })}
-                    slotProps={{ inputLabel: { shrink: true } }}
-                    size='small'
-                    required
-                    label="Horário"
-                    style={{ width: "65ch", margin: "10px" }}
-                    defaultValue={colegio.horario}
-                />                
+                <Box sx={{ display: "flex" }}>
+                    <TextField
+                        onChange={(e) => setColegio((colegio) => {
+                            return {
+                                ...colegio, nome: e.target.value
+                            }
+                        })}
+                        slotProps={{ inputLabel: { shrink: true } }}
+                        size='small'
+                        required={true}
+                        label="Nome "
+                        style={{ width: "65ch", margin: "10px" }}
+                        defaultValue={colegio.nome}
+                        type='string'
+                    />
+                    <TextField
+                        onChange={(e) => setColegio((colegio) => {
+                            return {
+                                ...colegio, horario: e.target.value
+                            }
+                        })}
+                        slotProps={{ inputLabel: { shrink: true } }}
+                        size='small'
+                        required
+                        label="Horário"
+                        style={{ width: "65ch", margin: "10px" }}
+                        defaultValue={colegio.horario}
+                    />
 
                 </Box>
-                <Box sx={{display:"flex"}}>
-                    <FormEndereco endereco={colegio.endereco} onChange={function (): void {
-                    throw new Error('Function not implemented.');
-                }} />
-                </Box> 
-                
+                <Box sx={{ display: "flex" }}>
+                    <FormEndereco endereco={colegio.endereco} setEndereco={setEndereco} />
+                </Box>
+
                 <TextField
                     onChange={(e) => setColegio((colegio) => {
                         return {
@@ -79,7 +77,7 @@ export default function FormColegio() {
                     label="Contatos"
                     style={{ width: "65ch", margin: "10px" }}
                     defaultValue={colegio.contatos}
-                />                       
+                />
                 <Button variant="contained"
                     onClick={registrar}
                     style={{ width: "67ch", margin: "10px", height: "40px" }}

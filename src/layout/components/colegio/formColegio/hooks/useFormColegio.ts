@@ -40,6 +40,7 @@ export const useFormColegio = () => {
     }
 
     const [colegio, setColegio] = useState<IColegio>(initColegio)
+    const [endereco, setEndereco] = useState<IFormEndereco>(initEndereco)
 
     const buscarColegioPorId = async (id: number) => {
         const response = await GETRequest<IColegio>(`/colegio/${id}`)
@@ -49,6 +50,15 @@ export const useFormColegio = () => {
 
         console.log("=====", response)
     }
+
+       useEffect(() => {     
+        setColegio(() => {
+            return{
+                ...colegio,
+                endereco:endereco
+            }
+        })
+    }, [endereco])
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search)
@@ -91,7 +101,8 @@ export const useFormColegio = () => {
         },
         action: {
             setColegio,
-            registrar
+            registrar,
+            setEndereco
         }
     }
 
