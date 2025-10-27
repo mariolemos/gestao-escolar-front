@@ -12,7 +12,6 @@ export default function FormColegio() {
     const {
         data: {
             colegio
-
         },
         action: {
             registrar,
@@ -27,8 +26,7 @@ export default function FormColegio() {
             <Box sx={{
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "center",
-
+                justifyContent: "center",                            
             }} >
 
                 <Box sx={{ display: "flex" }}>
@@ -42,7 +40,7 @@ export default function FormColegio() {
                         size='small'
                         required={true}
                         label="Nome "
-                        style={{ width: "65ch", margin: "10px" }}
+                        style={{ width: "75ch", margin: "10px" }}
                         defaultValue={colegio.nome}
                         type='string'
                     />
@@ -56,14 +54,32 @@ export default function FormColegio() {
                         size='small'
                         required
                         label="Horário"
-                        style={{ width: "65ch", margin: "10px" }}
+                        style={{ width: "73ch", margin: "10px" }}
                         defaultValue={colegio.horario}
                     />
 
                 </Box>
+                <Box sx={{
+                    bgcolor: "#ccc",
+                    m: 0, textAlign: "center",
+                    height: "35px",
+                    borderRadius: ".5rex",                    
+                    fontSize: "2.5ch",
+                    marginLeft: "10px",
+                    marginRight: "15px"
+                }}>Endereço</Box>
                 <Box sx={{ display: "flex" }}>
                     <FormEndereco endereco={colegio.endereco} setEndereco={setEndereco} />
                 </Box>
+                <Box sx={{
+                    bgcolor: "#ccc",
+                    textAlign: "center",
+                    height: "35px",
+                    borderRadius: ".5rex",                    
+                    fontSize: "2.5ch",
+                    marginLeft: "10px",
+                    marginRight: "15px"
+                }}>Contatos</Box>
 
                 <TextField
                     onChange={(e) => setColegio((colegio) => {
@@ -80,7 +96,7 @@ export default function FormColegio() {
                 />
                 <Button variant="contained"
                     onClick={registrar}
-                    style={{ width: "67ch", margin: "10px", height: "40px" }}
+                    style={{ width: "152ch", margin: "10px", height: "40px" }}
                 >Salvar</Button>
             </Box>
         </>

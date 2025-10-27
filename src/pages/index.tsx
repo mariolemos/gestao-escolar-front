@@ -1,5 +1,5 @@
 
-import { FormLabel } from "@mui/material";
+import { Box, FormLabel } from "@mui/material";
 import { Geist, Geist_Mono } from "next/font/google";
 
 
@@ -17,9 +17,16 @@ const geistMono = Geist_Mono({
 export default function Home() {
   return (
     <>
-      <h1 style={{bgcolor: "#ccc"}}>Tela Principal</h1>   
-      <FormLabel sx={{bgcolor: "#ccc"}}> Caixa de Seleção </FormLabel>  
-      
+      <Box sx={{
+        display: "flex",
+        flexDirection: "column",
+        //justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center"
+      }}>
+        <h1>Tela Principal</h1>
+
+      </Box>
     </>
   )
 }

@@ -6,7 +6,7 @@ export default function App({ Component, pageProps }: AppProps) {
 return (
     <>
       <MenuAppBar />
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </>
 
   )

@@ -69,6 +69,7 @@ export const useFormColegio = () => {
     }, [])
 
     const registrar = () => {
+        console.log(colegio)
         if (colegio.id > 0) {
             atualizar(colegio.id);
         } else {

@@ -1,4 +1,5 @@
 import { api } from "@/application/api/api"
+import { IFormEndereco } from "@/components/endereco/form"
 import { useEffect, useState } from "react"
 
 interface IAluno {
@@ -7,7 +8,8 @@ interface IAluno {
     dtNascimento: Date
     cpf: string
     rg: string
-    endereco: string
+    //endereco: string
+    endereco: IFormEndereco
     contato: string
     turno: string
     turma: string
@@ -47,6 +49,16 @@ export const useFormAluno = () => {
        
     ]
 
+    const initEndereco = {
+        logradouro: "",
+        numero: "",
+        complemento: "",
+        bairro: "",
+        cep: "",
+        cidade: "",
+        estado: "",
+    }
+
     const initAluno = {
         
         id: 0,
@@ -54,7 +66,7 @@ export const useFormAluno = () => {
         dtNascimento: new Date(),
         cpf: "",
         rg: "",
-        endereco: "",
+        endereco: initEndereco,
         contato: "",
         turno: "",
         turma: "",
