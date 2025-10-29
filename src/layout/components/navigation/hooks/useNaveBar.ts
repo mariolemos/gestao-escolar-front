@@ -25,7 +25,6 @@ export const useNaveBar = () => {
 
     const rendenrizarAluno = () => {
 
-
     }
 
     return {

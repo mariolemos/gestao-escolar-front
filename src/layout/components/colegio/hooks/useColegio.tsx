@@ -6,10 +6,7 @@ import { IconeEditar, IconeExcluir } from "@/icon";
 interface IColegio {
     id: number,
     nome: string,
-    horario: string,
-    alunos?: string,
-    contatos: string,
-    endereco: string,
+    horario: string,        
     editar?: React.ReactNode,
     excluir?: React.ReactNode,
 }
@@ -19,9 +16,7 @@ export const useColegio = () => {
     const cols = [
         "Id",
         "Nome",
-        "Horário",
-        "Contatos",
-        "Endereço",
+        "Horário",               
         "Editar",
         "Excluir"
     ]
@@ -36,9 +31,7 @@ export const useColegio = () => {
             let novoColegio: IColegio = {
                 id: colegio.id,
                 nome: colegio.nome,
-                horario: colegio.horario,
-                contatos: colegio.contatos,
-                endereco: colegio.endereco,
+                horario: colegio.horario,               
                 editar: (<Link href={`colegio/formColegio?id=${colegio.id}`} > <IconeEditar /></Link >),
                 excluir: (
                     <Link href={`aluno/formAluno?id=${colegio.id}`

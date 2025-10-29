@@ -1,32 +1,35 @@
 import { useEffect, useState } from 'react'
-
-import { BottomNavigation, BottomNavigationAction, Box, FormControl, MenuItem, TextField } from '@mui/material'
+import { Box, TextField } from '@mui/material'
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import { useFormAluno } from '../../../layout/components/aluno/formAluno/hooks/useFormAluno';
 import { useFormColegio } from '@/layout/components/colegio/formColegio/hooks/useFormColegio';
 import FormEndereco from '@/components/endereco/form';
+import { FormContato } from '@/components/contato/form';
+
 
 
 export default function FormColegio() {
     const {
         data: {
-            colegio
+            colegio,
+            contato,
+            contatos
         },
         action: {
             registrar,
             setColegio,
-            setEndereco
+            setEndereco,
+            setContato,
+            setContatos
         }
     } = useFormColegio()
-
 
     return (
         <>
             <Box sx={{
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "center",                            
+                justifyContent: "center",
             }} >
 
                 <Box sx={{ display: "flex" }}>
@@ -52,22 +55,12 @@ export default function FormColegio() {
                         })}
                         slotProps={{ inputLabel: { shrink: true } }}
                         size='small'
-                        required
                         label="Horário"
                         style={{ width: "73ch", margin: "10px" }}
                         defaultValue={colegio.horario}
+                        type='time'
                     />
-
                 </Box>
-                <Box sx={{
-                    bgcolor: "#ccc",
-                    m: 0, textAlign: "center",
-                    height: "35px",
-                    borderRadius: ".5rex",                    
-                    fontSize: "2.5ch",
-                    marginLeft: "10px",
-                    marginRight: "15px"
-                }}>Endereço</Box>
                 <Box sx={{ display: "flex" }}>
                     <FormEndereco endereco={colegio.endereco} setEndereco={setEndereco} />
                 </Box>
@@ -75,28 +68,15 @@ export default function FormColegio() {
                     bgcolor: "#ccc",
                     textAlign: "center",
                     height: "35px",
-                    borderRadius: ".5rex",                    
+                    borderRadius: ".5rex",
                     fontSize: "2.5ch",
                     marginLeft: "10px",
                     marginRight: "15px"
                 }}>Contatos</Box>
-
-                <TextField
-                    onChange={(e) => setColegio((colegio) => {
-                        return {
-                            ...colegio, contatos: e.target.value
-                        }
-                    })}
-                    slotProps={{ inputLabel: { shrink: true } }}
-                    size='small'
-                    required
-                    label="Contatos"
-                    style={{ width: "65ch", margin: "10px" }}
-                    defaultValue={colegio.contatos}
-                />
+                <FormContato contatos={colegio.contatos } setContatos={setContatos} />
                 <Button variant="contained"
                     onClick={registrar}
-                    style={{ width: "152ch", margin: "10px", height: "40px" }}
+                    style={{ width: "172ch", margin: "10px", height: "40px" }}
                 >Salvar</Button>
             </Box>
         </>

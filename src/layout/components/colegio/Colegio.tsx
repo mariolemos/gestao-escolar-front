@@ -22,7 +22,7 @@ export default function Colegio() {
                     <Link href={"/colegio/formColegio"}>
                         <PlusIcon style={{ color: "#fff", backgroundColor: "indigo" }} />
                     </Link></Button>
-                < DataTable data={{ cols, rows }} />       
+                < DataTable cols={cols}  rows={rows}/>       
         </Box>
     )
 }

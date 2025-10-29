@@ -1,4 +1,5 @@
 import { api } from "@/application/api/api"
+import { IFormContato } from "@/components/contato/form"
 import { IFormEndereco } from "@/components/endereco/form"
 import { endianness } from "os"
 import { useEffect, useState } from "react"
@@ -9,10 +10,10 @@ interface IColegio {
     id: number
     nome: string
     horario: string
-    alunos: string
-    contatos: string
+    contatos: IFormContato[]
     endereco: IFormEndereco
 }
+
 
 export const useFormColegio = () => {
     const {
@@ -30,17 +31,22 @@ export const useFormColegio = () => {
         cidade: "",
         estado: "",
     }
+
+    const initContato = {
+        contato: "",
+        tipo: 0
+    }
     const initColegio = {
         id: 0,
         nome: "",
         horario: "",
-        alunos: "",
-        contatos: "",
+        contatos: [initContato],
         endereco: initEndereco
     }
-
     const [colegio, setColegio] = useState<IColegio>(initColegio)
     const [endereco, setEndereco] = useState<IFormEndereco>(initEndereco)
+    const [contato, setContato] = useState<IFormContato>(initContato)
+    const [contatos, setContatos] = useState<IFormContato[]>([initContato])
 
     const buscarColegioPorId = async (id: number) => {
         const response = await GETRequest<IColegio>(`/colegio/${id}`)
@@ -51,14 +57,23 @@ export const useFormColegio = () => {
         console.log("=====", response)
     }
 
-       useEffect(() => {     
+    useEffect(() => {
         setColegio(() => {
-            return{
+            return {
                 ...colegio,
-                endereco:endereco
+                endereco: endereco
             }
         })
     }, [endereco])
+
+    useEffect(() => {
+        setColegio(() => {
+            return {
+                ...colegio,
+                contatos: contatos
+            }
+        })
+    }, [contatos])
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search)
@@ -99,11 +114,15 @@ export const useFormColegio = () => {
 
         data: {
             colegio,
+            contato,
+            contatos
         },
         action: {
             setColegio,
             registrar,
-            setEndereco
+            setEndereco,
+            setContato,
+            setContatos
         }
     }
 

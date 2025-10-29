@@ -75,7 +75,6 @@ export default function FormAluno() {
                 //     }
                 // })}
                 slotProps={{ inputLabel: { shrink: true } }}
-                required
                 type='date'
                 size='small'
                 id="outlined-error-helper-text"
@@ -87,12 +86,12 @@ export default function FormAluno() {
                 bgcolor: "#ccc",
                 m: 0, textAlign: "center",
                 height: "35px",
-                borderRadius: ".5rex",                
+                borderRadius: ".5rex",
                 fontSize: "2.5ch",
                 marginLeft: "10px",
                 marginRight: "15px"
             }}>Endereço</Box>
-            <FormEndereco  endereco={aluno.endereco} setEndereco={setEndereco} />
+            <FormEndereco endereco={aluno.endereco} setEndereco={setEndereco} />
             {/* <TextField
                     onChange={(e) => setAluno((aluno) => {
                         return {
@@ -105,6 +104,12 @@ export default function FormAluno() {
                     sx={{ width: "65ch", margin: "10px" }}
                     defaultValue={aluno.endereco}
                 /> */}
+            <Box sx={{
+                bgcolor: "#ccc",
+                color: "#ccc",
+                marginLeft: "10px",
+                marginRight: "15px"
+            }}>f</Box>
             <TextField
                 onChange={(e) => setAluno((aluno) => {
                     return {
@@ -140,6 +145,7 @@ export default function FormAluno() {
                 sx={{ width: "48ch", margin: "10px" }}
                 label="Responsável"
                 defaultValue={aluno.responsavelId}
+                required={true}
             />
             <TextField
                 onChange={(e) => setAluno((aluno) => {
@@ -149,10 +155,10 @@ export default function FormAluno() {
                 })}
                 slotProps={{ inputLabel: { shrink: true } }}
                 size='small'
-                required
                 label="Colégio"
                 sx={{ width: "35ch", margin: "10px" }}
                 defaultValue={aluno.colegioId}
+                required={true}
             />
             <TextField
                 onChange={(e) => setAluno((aluno) => {
@@ -170,6 +176,7 @@ export default function FormAluno() {
                 label="Turno"
                 sx={{ width: "20ch", margin: "10px" }}
                 defaultValue={aluno.turno}
+                required={true}
             >
                 {turno.map((option) => (
                     <option key={option.id} value={option.nome}>
@@ -227,6 +234,7 @@ export default function FormAluno() {
                 sx={{ width: "40ch", margin: "10px" }}
                 defaultValue={aluno.convenioMedico}
             />
+            
             <TextField
                 onChange={(e) => setAluno((aluno) => {
                     return {
@@ -238,6 +246,7 @@ export default function FormAluno() {
                 label="Status"
                 sx={{ width: "24ch", margin: "10px" }}
                 defaultValue={aluno.status}
+                required={true}
             />
             <Button variant="contained"
                 onClick={registrar}

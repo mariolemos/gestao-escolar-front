@@ -14,13 +14,12 @@ import { blue } from '@mui/material/colors';
 export default function MenuAppBar() {
     const {
         data: {
-            auth,
-            anchorEl
+            
         },
         action: {
             handleChange,
             handleMenu,
-            // handleClose,
+            //handleClose,
             testando,
             rendenrizarAluno
         }
