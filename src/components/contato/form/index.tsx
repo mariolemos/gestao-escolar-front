@@ -1,3 +1,4 @@
+import { IconeExcluir, PlusIcon } from "@/icon"
 import { DataTable } from "@/layout/components/dataTable/DataTable"
 import { Box, Button, TextField } from "@mui/material"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
@@ -17,7 +18,7 @@ export interface IFormContato {
     id?: number
     contato: string
     tipo: number
-
+    excluir?: React.ReactNode
 }
 
 export const FormContato = ({
@@ -26,25 +27,26 @@ export const FormContato = ({
 
 }: IPropsContato) => {
 
-    const cols = ["Contato", "Tipo"]
+    const cols = ["Contato", "Tipo", "Excluir"]
     const [contato, setContato] = useState<IFormContato>({
         contato: "14526-11246",
         tipo: TipoContato.CELULAR
-    })      
+    })
 
     const adicionar = () => {
         console.log("XXXx")
         contatos.push({
             contato: contato.contato,
-            tipo: TipoContato.FIXO
+            tipo: TipoContato.FIXO,
+            excluir: (<Button ><IconeExcluir /></Button>)
         })
-         setContatos(contatos)
-    }   
-
-    const remove = (contato: IFormContato) => {        
+        setContatos(contatos)
+    }
+    
+    const remove = (contato: IFormContato) => {
         const newcontatos = contatos.filter((c: IFormContato) =>
-             (!c.id && c.contato != contato.contato && c.tipo != contato.tipo) || (c.id && c.id !== contato.id)
-    )
+            (!c.id && c.contato != contato.contato && c.tipo != contato.tipo) || (c.id && c.id !== contato.id)
+        )
         setContatos(newcontatos)
     }
 
@@ -65,9 +67,49 @@ export const FormContato = ({
                     defaultValue={contato.contato}
                     type='string'
                 />
+                <TextField
+                    onChange={(e) => setContato((contato) => {
+                        return {
+                            ...contato, tipo: e.target.value
+                        }
+                    })}
+                    slotProps={{
+                        inputLabel: { shrink: true }, select: {
+                            native: true
+                        }
+                    }}
+                    select
+                    size='small'
+                    required={true}
+                    label="Tipo "
+                    style={{ width: "55ch", margin: "10px" }}
+                    //defaultValue={contato.tipo}
+                     defaultValue={TipoContato.FIXO}
+                    
+                    type='string'
+                >
+                    
+                    <option  >
+                             {TipoContato.FIXO}              
+                    </option>
+                    
+                    <option  >
+                             {TipoContato.CELULAR}              
+                    </option>
+                    <option  >
+                             {TipoContato.EMAil}              
+                    </option>
+               
+                </TextField>
                 <Button
                     onClick={adicionar}
-                >Adicionar
+                    startIcon={<PlusIcon sx={{
+                        color: "indigo",
+                        marginTop: "10px",
+                        width: "30px",
+                        height: "30px"
+                    }} />}
+                >
                 </Button>
             </Box>
 

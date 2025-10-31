@@ -84,7 +84,7 @@ export const useAluno = () => {
         },
         action: {
             turno,
-            setTurno
+            setTurno,            
         }
     }
 }

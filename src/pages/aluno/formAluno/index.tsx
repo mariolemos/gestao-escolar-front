@@ -92,18 +92,7 @@ export default function FormAluno() {
                 marginRight: "15px"
             }}>Endereço</Box>
             <FormEndereco endereco={aluno.endereco} setEndereco={setEndereco} />
-            {/* <TextField
-                    onChange={(e) => setAluno((aluno) => {
-                        return {
-                            ...aluno, endereco: e.target.value
-                    
-                    })}
-                    slotProps={{ inputLabel: { shrink: true } }}
-                    size='small'
-                    label="Endereço"
-                    sx={{ width: "65ch", margin: "10px" }}
-                    defaultValue={aluno.endereco}
-                /> */}
+                       
             <Box sx={{
                 bgcolor: "#ccc",
                 color: "#ccc",
@@ -178,7 +167,7 @@ export default function FormAluno() {
                 defaultValue={aluno.turno}
                 required={true}
             >
-                {turno.map((option) => (
+               {turno.map((option) => (
                     <option key={option.id} value={option.nome}>
                         {option.nome}
                     </option>

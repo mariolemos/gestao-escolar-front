@@ -1,6 +1,7 @@
 
 import { Box, FormLabel } from "@mui/material";
 import { Geist, Geist_Mono } from "next/font/google";
+import LoadingButtons from "./load/load";
 
 
 
@@ -25,6 +26,7 @@ export default function Home() {
         textAlign: "center"
       }}>
         <h1>Tela Principal</h1>
+        <LoadingButtons/>
 
       </Box>
     </>
