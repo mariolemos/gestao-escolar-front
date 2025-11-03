@@ -34,15 +34,20 @@ export const FormContato = ({
     })
 
     const adicionar = () => {
-        console.log("XXXx")
-        contatos.push({
+
+        const novoContato = {
             contato: contato.contato,
-            tipo: TipoContato.FIXO,
-            excluir: (<Button ><IconeExcluir /></Button>)
-        })
-        setContatos(contatos)
+            tipo: contato.tipo,
+            excluir: (<Button onClick={() => remove({ ...contato, tipo: contato.tipo, contato: contato.contato })}><IconeExcluir /></Button>)
+        };
+
+        setContatos([...contatos, novoContato]);
+        setContato({
+            contato: "",
+            tipo: TipoContato.FIXO
+        });
     }
-    
+
     const remove = (contato: IFormContato) => {
         const newcontatos = contatos.filter((c: IFormContato) =>
             (!c.id && c.contato != contato.contato && c.tipo != contato.tipo) || (c.id && c.id !== contato.id)
@@ -84,22 +89,22 @@ export const FormContato = ({
                     label="Tipo "
                     style={{ width: "55ch", margin: "10px" }}
                     //defaultValue={contato.tipo}
-                     defaultValue={TipoContato.FIXO}
-                    
+                    defaultValue={TipoContato.FIXO}
+
                     type='string'
                 >
-                    
+
                     <option  >
-                             {TipoContato.FIXO}              
+                        {TipoContato.FIXO}
                     </option>
-                    
+
                     <option  >
-                             {TipoContato.CELULAR}              
+                        {TipoContato.CELULAR}
                     </option>
                     <option  >
-                             {TipoContato.EMAil}              
+                        {TipoContato.EMAil}
                     </option>
-               
+
                 </TextField>
                 <Button
                     onClick={adicionar}
