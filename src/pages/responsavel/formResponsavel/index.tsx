@@ -1,28 +1,27 @@
-import { useEffect, useState } from 'react'
-import { Box, TextField, Typography } from '@mui/material'
+import { Box, TextField, Toolbar, Typography } from '@mui/material'
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import { useFormColegio } from '@/layout/components/colegio/formColegio/hooks/useFormColegio';
 import FormEndereco from '@/components/endereco/form';
 import { FormContato } from '@/components/contato/form';
+import { useFormResponsavel } from '@/layout/components/responsavel/formresponsavel/hooks/useFormResponsavel';
 
 
 
-export default function FormColegio() {
+export default function FormResponsavel() {
     const {
         data: {
-            colegio,
-            contato,
-            contatos
+            responsavel,
+             contato,
+             contatos
         },
         action: {
             registrar,
-            setColegio,
+            setResponsavel,
             setEndereco,
             setContato,
             setContatos
         }
-    } = useFormColegio()
+    } = useFormResponsavel()
 
     return (
         <>
@@ -32,15 +31,14 @@ export default function FormColegio() {
                 justifyContent: "center",
             }} >
                 <Typography variant="h4" component="div" sx={{ flexGrow: 2, textAlign: "center" }}>
-                    Cadastro Colégio
+                    Cadastro Responsável
                 </Typography>
 
                 <Box sx={{ display: "flex" }}>
-                    
                     <TextField
-                        onChange={(e) => setColegio((colegio) => {
+                        onChange={(e) => setResponsavel((responsavel) => {
                             return {
-                                ...colegio, nome: e.target.value
+                                ...responsavel, nome: e.target.value
                             }
                         })}
                         slotProps={{ inputLabel: { shrink: true } }}
@@ -48,25 +46,27 @@ export default function FormColegio() {
                         required={true}
                         label="Nome "
                         style={{ width: "75ch", margin: "10px" }}
-                        defaultValue={colegio.nome}
+                        defaultValue={responsavel.nome}
                         type='string'
                     />
                     <TextField
-                        onChange={(e) => setColegio((colegio) => {
+                        onChange={(e) => setResponsavel((responsavel) => {
                             return {
-                                ...colegio, horario: e.target.value
+                                ...responsavel, parentesco: e.target.value
                             }
                         })}
                         slotProps={{ inputLabel: { shrink: true } }}
                         size='small'
-                        label="Horário"
-                        style={{ width: "73ch", margin: "10px" }}
-                        defaultValue={colegio.horario}
-                        type='time'
+                        required={true}
+                        label="Patentesco"
+                        style={{ width: "75ch", margin: "10px" }}
+                        defaultValue={responsavel.parentesco}
+                        type='string'
                     />
+
                 </Box>
                 <Box sx={{ display: "flex" }}>
-                    <FormEndereco endereco={colegio.endereco} setEndereco={setEndereco} />
+                    <FormEndereco endereco={responsavel.endereco} setEndereco={setEndereco} />
                 </Box>
                 <Box sx={{
                     bgcolor: "#ccc",
@@ -77,7 +77,7 @@ export default function FormColegio() {
                     marginLeft: "10px",
                     marginRight: "15px"
                 }}>Contatos</Box>
-                <FormContato contatos={colegio.contatos } setContatos={setContatos} />
+                <FormContato contatos={responsavel.contatos} setContatos={setContatos} />
                 <Button variant="contained"
                     onClick={registrar}
                     style={{ width: "172ch", margin: "10px", height: "40px" }}

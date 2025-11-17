@@ -33,7 +33,7 @@ export default function Aluno() {
                 <Link href={"/aluno/formAluno"}>
                     <PlusIcon style={{ color: "#fff", backgroundColor: "indigo" }} />
                 </Link></Button>
-            <DataTable data={{ cols, rows }} />
+            <DataTable cols={cols}  rows={rows} />
         </Box>
-    )
+    )    
 }

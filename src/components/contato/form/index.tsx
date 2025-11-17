@@ -42,7 +42,7 @@ export const FormContato = ({
         })
         setContatos(contatos)
     }
-    
+
     const remove = (contato: IFormContato) => {
         const newcontatos = contatos.filter((c: IFormContato) =>
             (!c.id && c.contato != contato.contato && c.tipo != contato.tipo) || (c.id && c.id !== contato.id)
@@ -84,31 +84,33 @@ export const FormContato = ({
                     label="Tipo "
                     style={{ width: "55ch", margin: "10px" }}
                     //defaultValue={contato.tipo}
-                     defaultValue={TipoContato.FIXO}
-                    
+                    defaultValue={TipoContato.FIXO}
+
                     type='string'
                 >
-                    
                     <option  >
-                             {TipoContato.FIXO}              
+                        {TipoContato[0]}
                     </option>
-                    
+
                     <option  >
-                             {TipoContato.CELULAR}              
+                        {TipoContato[1]}
                     </option>
                     <option  >
-                             {TipoContato.EMAil}              
+                        {TipoContato[2]}
                     </option>
-               
+                    {/* {
+                        [TipoContato[0]].map((valor) => {
+                            return <option>{valor}</option>                                                      
+                        })
+                    } */}
+
                 </TextField>
-                <Button
+                <Button sx={{
+                    bgcolor: "indigo",
+                    marginTop: "15px",
+                }}
                     onClick={adicionar}
-                    startIcon={<PlusIcon sx={{
-                        color: "indigo",
-                        marginTop: "10px",
-                        width: "30px",
-                        height: "30px"
-                    }} />}
+                    startIcon={<PlusIcon sx={{ color: "#fff" }} />}
                 >
                 </Button>
             </Box>

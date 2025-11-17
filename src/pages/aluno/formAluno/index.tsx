@@ -1,6 +1,6 @@
 import { SetStateAction, useEffect, useState } from 'react'
 
-import { BottomNavigation, BottomNavigationAction, Box, FormControl, MenuItem, TextField } from '@mui/material'
+import { BottomNavigation, BottomNavigationAction, Box, FormControl, MenuItem, TextField, Typography } from '@mui/material'
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import { useFormAluno } from '../../../layout/components/aluno/formAluno/hooks/useFormAluno';
@@ -28,6 +28,9 @@ export default function FormAluno() {
 
     return (
         <Box>
+            <Typography variant="h4" component="div" sx={{ flexGrow: 2, textAlign: "center" }}>
+                Cadastro Aluno
+            </Typography>
             <TextField
 
                 onChange={(e) => setAluno((aluno) => {
@@ -82,17 +85,9 @@ export default function FormAluno() {
                 sx={{ width: "30ch", margin: "10px" }}
                 defaultValue={aluno.dtNascimento}
             />
-            <Box sx={{
-                bgcolor: "#ccc",
-                m: 0, textAlign: "center",
-                height: "35px",
-                borderRadius: ".5rex",
-                fontSize: "2.5ch",
-                marginLeft: "10px",
-                marginRight: "15px"
-            }}>Endereço</Box>
+
             <FormEndereco endereco={aluno.endereco} setEndereco={setEndereco} />
-                       
+
             <Box sx={{
                 bgcolor: "#ccc",
                 color: "#ccc",
@@ -167,7 +162,7 @@ export default function FormAluno() {
                 defaultValue={aluno.turno}
                 required={true}
             >
-               {turno.map((option) => (
+                {turno.map((option) => (
                     <option key={option.id} value={option.nome}>
                         {option.nome}
                     </option>
@@ -223,7 +218,7 @@ export default function FormAluno() {
                 sx={{ width: "40ch", margin: "10px" }}
                 defaultValue={aluno.convenioMedico}
             />
-            
+
             <TextField
                 onChange={(e) => setAluno((aluno) => {
                     return {

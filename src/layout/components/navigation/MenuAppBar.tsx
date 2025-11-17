@@ -106,7 +106,7 @@ export default function MenuAppBar() {
                                             onKeyDown={handleListKeyDown}>
                                             <MenuItem onClick={handleClose}><Link href={"/aluno"} >Aluno</Link></MenuItem>
                                             <MenuItem onClick={handleClose}><Link href={"/colegio"} >Colegio</Link></MenuItem>
-                                            <MenuItem onClick={handleClose}><Link href={"/mensalidade"} >Mensalidades</Link></MenuItem>
+                                            <MenuItem onClick={handleClose}><Link href={"/responsavel"} >Responsável</Link></MenuItem>
                                             <MenuItem onClick={handleClose}><Link href={"/ajustes"} >Mensalidades</Link></MenuItem>
                                         </MenuList>
                                     </ClickAwayListener>
