@@ -59,7 +59,7 @@ export default function FormResponsavel() {
                         size='small'
                         required={true}
                         label="Patentesco"
-                        style={{ width: "75ch", margin: "10px" }}
+                        style={{ width: "73ch", margin: "10px" }}
                         defaultValue={responsavel.parentesco}
                         type='string'
                     />

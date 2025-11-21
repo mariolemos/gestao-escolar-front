@@ -27,7 +27,6 @@ export default function Home() {
       }}>
         <h1>Tela Principal</h1>
         <LoadingButtons/>
-
       </Box>
     </>
   )

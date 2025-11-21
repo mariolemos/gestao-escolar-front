@@ -32,21 +32,21 @@ export const useFormColegio = () => {
         estado: "",
     }
 
-    const initContato = {
-        contato: "",
-        tipo: 0
-    }
+    // const initContato = {
+    //     contato: "",
+    //     tipo: 0
+    // }
     const initColegio = {
         id: 0,
         nome: "",
         horario: "",
-        contatos: [initContato],
+        contatos: [],
         endereco: initEndereco
     }
     const [colegio, setColegio] = useState<IColegio>(initColegio)
     const [endereco, setEndereco] = useState<IFormEndereco>(initEndereco)
-    const [contato, setContato] = useState<IFormContato>(initContato)
-    const [contatos, setContatos] = useState<IFormContato[]>([initContato])
+    const [contato, setContato] = useState<IFormContato>()
+    const [contatos, setContatos] = useState<IFormContato[]>([])
 
     const buscarColegioPorId = async (id: number) => {
         const response = await GETRequest<IColegio>(`/colegio/${id}`)
@@ -104,10 +104,22 @@ export const useFormColegio = () => {
 
     }
     const salvar = async () => {
+
+        removePropriedadeExcluirContatos()
+
         const response = await POSTRequest<IColegio>("/colegio", colegio)
         if (response) {
             setColegio(response)
         }
+    }
+
+    const removePropriedadeExcluirContatos = () => {
+
+        const contatosPropriedadeExcluir = contatos.map(({ excluir, ...resto }) => resto);
+
+        colegio.contatos = contatosPropriedadeExcluir;
+
+        console.log(colegio.contatos)
     }
 
     return {

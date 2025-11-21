@@ -82,7 +82,7 @@ export const useFormAluno = () => {
     const [aluno, setAluno] = useState<IAluno>(initAluno)    
 
     const buscarAlunoPorId = async (id: number) => {
-        const response = await GETRequest<IAluno>(`http://localhost:8080/aluno/${id}`)
+        const response = await GETRequest<IAluno>(`/aluno/${id}`)
         if (response) {
             setAluno(response)
         }
@@ -113,7 +113,7 @@ export const useFormAluno = () => {
             responsavelId: 1,
             colegioId: 1
         }
-        const response = await PUTRequest<IAluno>(`http://localhost:8080/aluno/${id}`, alunoUpdate)
+        const response = await PUTRequest<IAluno>(`/aluno/${id}`, alunoUpdate)
         if (response) {
             setAluno(response)
         } 
@@ -121,7 +121,7 @@ export const useFormAluno = () => {
     }
 
     const salvar = async () => {
-        const response = await POSTRequest<IAluno>("http://localhost:8080/aluno", aluno)
+        const response = await POSTRequest<IAluno>("/aluno", aluno)
         if (response) {
             setAluno(response)
         }      

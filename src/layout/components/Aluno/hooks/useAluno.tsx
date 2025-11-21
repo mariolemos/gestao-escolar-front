@@ -67,7 +67,7 @@ export const useAluno = () => {
 
     const buscarAlunos = async () => {
 
-        const response = await GETRequest<IAluno[]>("http://localhost:8080/aluno")
+        const response = await GETRequest<IAluno[]>("/aluno")
         setRows(converteToAlno(response ?? [], "Vespertino"))
         console.log("RRRRRR" , turno)
         console.log("*****", response)

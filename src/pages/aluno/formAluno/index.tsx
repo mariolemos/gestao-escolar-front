@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import { useFormAluno } from '../../../layout/components/aluno/formAluno/hooks/useFormAluno';
 import FormEndereco, { IFormEndereco } from '@/components/endereco/form';
 import colegio from '@/pages/colegio';
+import FormResponsavel from '@/pages/responsavel/formResponsavel';
 
 
 export default function FormAluno() {
@@ -68,7 +69,7 @@ export default function FormAluno() {
                 slotProps={{ inputLabel: { shrink: true } }}
                 size='small'
                 label="RG"
-                sx={{ width: "20ch", margin: "10px" }}
+                sx={{ width: "21ch", margin: "10px" }}
                 defaultValue={aluno.rg}
             />
             <TextField
@@ -82,11 +83,11 @@ export default function FormAluno() {
                 size='small'
                 id="outlined-error-helper-text"
                 label="Data Nascimento"
-                sx={{ width: "30ch", margin: "10px" }}
+                sx={{ width: "29ch", margin: "10px" }}
                 defaultValue={aluno.dtNascimento}
             />
 
-            <FormEndereco endereco={aluno.endereco} setEndereco={setEndereco} />
+            <FormEndereco endereco={aluno.endereco} setEndereco={setEndereco} />           
 
             <Box sx={{
                 bgcolor: "#ccc",

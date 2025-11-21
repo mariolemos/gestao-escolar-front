@@ -78,7 +78,7 @@ export default function FormEndereco({
                         slotProps={{ inputLabel: { shrink: true } }}
                         size='small'
                         label="Complemento"
-                        style={{ width: "43ch", margin: "10px" }}
+                        style={{ width: "41ch", margin: "10px" }}
                         defaultValue={endereco.complemento}
                     />
                     <TextField
@@ -90,7 +90,7 @@ export default function FormEndereco({
                         slotProps={{ inputLabel: { shrink: true } }}
                         size='small'
                         label="Bairro"
-                        style={{ width: "34ch", margin: "10px" }}
+                        style={{ width: "36ch", margin: "10px" }}
                         defaultValue={endereco.bairro}
                     />
                     <TextField

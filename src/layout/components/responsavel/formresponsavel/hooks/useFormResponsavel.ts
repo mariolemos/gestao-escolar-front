@@ -40,13 +40,13 @@ export const useFormResponsavel = () => {
         nome: "",
         parentesco: "",
         endereco: initEndereco,
-        contatos: [initContato]
+        contatos: []
     }
 
     const [responsavel, setResponsavel] = useState<IResponsavel>(initResponsavel)
     const [contato, setContato] = useState<IFormContato>(initContato)
     const [endereco, setEndereco] = useState<IFormEndereco>(initEndereco)
-    const [contatos, setContatos] = useState<IFormContato[]>([initContato])
+    const [contatos, setContatos] = useState<IFormContato[]>([])
 
     const buscarResponsavelPorId = async (id: number) => {
         const response = await GETRequest<IResponsavel>(`/responsavel/${id}`)
@@ -63,8 +63,28 @@ export const useFormResponsavel = () => {
             buscarResponsavelPorId(Number.parseInt(id));
         }
     }, [])
+     useEffect(() => {
+            setResponsavel(() => {
+                return {
+                    ...responsavel,
+                    endereco: endereco
+                }
+            })
+        }, [endereco])
+    
+        useEffect(() => {
+            setResponsavel(() => {
+                return {
+                    ...responsavel,
+                    contatos: contatos
+                }
+            })
+        }, [contatos])
 
     const registrar = () => {
+        
+        removePropriedadeExcluirContatos()
+
         if (responsavel.id > 0) {
             atualizar(responsavel.id);
         } else {
@@ -73,7 +93,7 @@ export const useFormResponsavel = () => {
         }
     }
 
-    const atualizar = async (id: number) => {
+    const atualizar = async (id: number) => {        
 
         const responsavelUpdate = {
             ...responsavel,
@@ -88,11 +108,23 @@ export const useFormResponsavel = () => {
     }
 
     const salvar = async () => {
+        
+
         const response = await POSTRequest<IResponsavel>("/responsavel", responsavel)
         if (response) {
             setResponsavel(response)
         }
     }
+
+    const removePropriedadeExcluirContatos = () => {
+
+        const contatosPropriedadeExcluir = contatos.map(({ excluir, ...resto }) => resto);
+
+        responsavel.contatos = contatosPropriedadeExcluir;
+
+        console.log(responsavel.contatos)
+    }
+
     return {
         data: {
             responsavel,

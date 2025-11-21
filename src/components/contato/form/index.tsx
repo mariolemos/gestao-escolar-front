@@ -34,13 +34,18 @@ export const FormContato = ({
     })
 
     const adicionar = () => {
-        console.log("XXXx")
-        contatos.push({
+
+        const novoContato = {
             contato: contato.contato,
-            tipo: TipoContato.FIXO,
-            excluir: (<Button ><IconeExcluir /></Button>)
-        })
-        setContatos(contatos)
+            tipo: contato.tipo,
+            excluir: (<Button onClick={() => remove({ ...contato, tipo: contato.tipo, contato: contato.contato })}><IconeExcluir /></Button>)
+        };
+
+        setContatos([...contatos, novoContato]);
+        setContato({
+            contato: "",
+            tipo: TipoContato.FIXO
+        });
     }
 
     const remove = (contato: IFormContato) => {
@@ -89,20 +94,15 @@ export const FormContato = ({
                     type='string'
                 >
                     <option  >
-                        {TipoContato[0]}
+                        {TipoContato.FIXO}
                     </option>
 
                     <option  >
-                        {TipoContato[1]}
+                        {TipoContato.CELULAR}
                     </option>
                     <option  >
-                        {TipoContato[2]}
+                        {TipoContato.EMAil}
                     </option>
-                    {/* {
-                        [TipoContato[0]].map((valor) => {
-                            return <option>{valor}</option>                                                      
-                        })
-                    } */}
 
                 </TextField>
                 <Button sx={{
