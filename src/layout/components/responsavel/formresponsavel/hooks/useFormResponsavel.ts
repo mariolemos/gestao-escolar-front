@@ -52,6 +52,7 @@ export const useFormResponsavel = () => {
         const response = await GETRequest<IResponsavel>(`/responsavel/${id}`)
         if (response) {
             setResponsavel(response)
+            setEndereco(response.endereco)
         }
 
         console.log("=====", response)

@@ -52,6 +52,7 @@ export const useFormColegio = () => {
         const response = await GETRequest<IColegio>(`/colegio/${id}`)
         if (response) {
             setColegio(response)
+            setEndereco(response.endereco)
         }
 
         console.log("=====", response)

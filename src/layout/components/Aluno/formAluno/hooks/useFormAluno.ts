@@ -1,5 +1,6 @@
 import { api } from "@/application/api/api"
 import { IFormEndereco } from "@/components/endereco/form"
+import { idID } from "@mui/material/locale"
 import { useEffect, useState } from "react"
 
 interface IAluno {
@@ -50,6 +51,7 @@ export const useFormAluno = () => {
     ]
 
     const initEndereco = {
+        id: 0,
         logradouro: "",
         numero: "",
         complemento: "",
@@ -79,12 +81,14 @@ export const useFormAluno = () => {
         status: ""
     }
 
-    const [aluno, setAluno] = useState<IAluno>(initAluno)    
+    const [aluno, setAluno] = useState<IAluno>(initAluno)
+    const [endereco, setEndereco] = useState<IFormEndereco>(initEndereco)   
 
     const buscarAlunoPorId = async (id: number) => {
         const response = await GETRequest<IAluno>(`/aluno/${id}`)
         if (response) {
             setAluno(response)
+            setEndereco(response.endereco)
         }
 
         console.log("=====", response)
@@ -96,6 +100,15 @@ export const useFormAluno = () => {
             buscarAlunoPorId(Number.parseInt(id));
         }
     }, [])
+
+    useEffect(() => {
+        setAluno(() => {
+            return {
+                ...aluno,
+                endereco: endereco
+            }
+        })
+    }, [endereco])
 
     const registrar =  () => {
         if(aluno.id > 0) {
