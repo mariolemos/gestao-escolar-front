@@ -1,4 +1,4 @@
-import { api } from "@/application/api/api"
+import { useApi } from "@/application/api/api"
 import { IFormContato } from "@/components/contato/form"
 import { IFormEndereco } from "@/components/endereco/form"
 import { endianness } from "os"
@@ -20,7 +20,7 @@ export const useFormColegio = () => {
         GETRequest,
         POSTRequest,
         PUTRequest
-    } = api()
+    } = useApi()
 
     const initEndereco = {
         logradouro: "",
@@ -49,13 +49,13 @@ export const useFormColegio = () => {
     const [contatos, setContatos] = useState<IFormContato[]>([])
 
     const buscarColegioPorId = async (id: number) => {
-        const response = await GETRequest<IColegio>(`/colegio/${id}`)
-        if (response) {
-            setColegio(response)
-            setEndereco(response.endereco)
+        const { data } = await GETRequest<IColegio>(`/colegio/${id}`)
+        if (data) {
+            setColegio(data)
+            setEndereco(data.endereco)
         }
 
-        console.log("=====", response)
+        console.log("=====", data)
     }
 
     useEffect(() => {
@@ -98,9 +98,9 @@ export const useFormColegio = () => {
         const colegioUpdate = {
             ...colegio,
         }
-        const response = await PUTRequest<IColegio>(`/colegio/${id}`, colegioUpdate)
-        if (response) {
-            setColegio(response)
+        const { data } = await PUTRequest<IColegio>(`/colegio/${id}`, colegioUpdate)
+        if (data) {
+            setColegio(data)
         }
 
     }
@@ -108,9 +108,9 @@ export const useFormColegio = () => {
 
         removePropriedadeExcluirContatos()
 
-        const response = await POSTRequest<IColegio>("/colegio", colegio)
-        if (response) {
-            setColegio(response)
+        const { data } = await POSTRequest<IColegio>("/colegio", colegio)
+        if (data) {
+            setColegio(data)
         }
     }
 

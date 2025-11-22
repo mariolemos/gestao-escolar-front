@@ -1,4 +1,4 @@
-import { api } from "@/application/api/api"
+import { useApi } from "@/application/api/api"
 import { IFormEndereco } from "@/components/endereco/form"
 import { idID } from "@mui/material/locale"
 import { useEffect, useState } from "react"
@@ -29,7 +29,7 @@ export const useFormAluno = () => {
         GETRequest,
         POSTRequest,
         PUTRequest,
-    } = api()
+    } = useApi()
 
     const turno = [{
         id: 1,
@@ -85,13 +85,13 @@ export const useFormAluno = () => {
     const [endereco, setEndereco] = useState<IFormEndereco>(initEndereco)   
 
     const buscarAlunoPorId = async (id: number) => {
-        const response = await GETRequest<IAluno>(`/aluno/${id}`)
-        if (response) {
-            setAluno(response)
-            setEndereco(response.endereco)
+        const { data } = await GETRequest<IAluno>(`/aluno/${id}`)
+        if (data) {
+            setAluno(data)
+            setEndereco(data.endereco)
         }
 
-        console.log("=====", response)
+        console.log("=====", data)
     }
     useEffect(() => {
         const params = new URLSearchParams(window.location.search)
@@ -126,17 +126,17 @@ export const useFormAluno = () => {
             responsavelId: 1,
             colegioId: 1
         }
-        const response = await PUTRequest<IAluno>(`/aluno/${id}`, alunoUpdate)
-        if (response) {
-            setAluno(response)
+        const { data } = await PUTRequest<IAluno>(`/aluno/${id}`, alunoUpdate)
+        if (data) {
+            setAluno(data)
         } 
 
     }
 
     const salvar = async () => {
-        const response = await POSTRequest<IAluno>("/aluno", aluno)
-        if (response) {
-            setAluno(response)
+        const { data } = await POSTRequest<IAluno>("/aluno", aluno)
+        if (data) {
+            setAluno(data)
         }      
     }
     return {

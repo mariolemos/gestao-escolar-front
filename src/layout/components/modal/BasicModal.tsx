@@ -2,6 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
+import { useBasicModal } from './hooks/useBasicModal';
 
 interface IModalProps {
   mensage: string
@@ -23,13 +24,17 @@ const style = {
 export default function BasicModal({
   mensage
 }: IModalProps) {
-  const [open, setOpen] = React.useState(true);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+
+  const {
+    data: {
+      open
+    },
+    actions: {
+      handleOpen,
+      handleClose
+    }
+  } = useBasicModal()
+
 
   return (
     <div>

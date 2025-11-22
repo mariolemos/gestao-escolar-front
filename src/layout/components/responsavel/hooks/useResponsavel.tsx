@@ -1,6 +1,6 @@
 import { Link } from '@mui/material'
 import React, { useEffect, useState } from "react";
-import { api } from "@/application/api/api";
+import { useApi  } from "@/application/api/api";
 import { IconeEditar, IconeExcluir } from '@/icon';
 
 interface IResponsavel {
@@ -24,7 +24,7 @@ export const useResponsavel = () => {
 
     const {
         GETRequest
-    } = api()
+    } = useApi ()
 
     const converteToResponsavel = (array: IResponsavel[]) => {
         const novoArray: IResponsavel[] = []
@@ -47,9 +47,11 @@ export const useResponsavel = () => {
 
     const buscarResponsavel = async () => {
 
-        const response = await GETRequest<IResponsavel[]>("/responsavel")
-        setRows(converteToResponsavel(response ?? []))
-        console.log("*****bbb", response)
+        const {data} = await GETRequest<IResponsavel[]>("/responsavel")
+        if(data){
+            setRows(converteToResponsavel(data))
+        }
+        console.log("*****bbb", data)
     }
 
     useEffect(() => {

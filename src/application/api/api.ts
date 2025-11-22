@@ -1,98 +1,149 @@
-import BasicModal from '@/layout/components/modal/BasicModal';
-interface IErroResponse {
-    mensage: string
-    mensagens: Array<string>
-    status: number
-}
-export const api = () => {
+import { useAlert } from '@/layout/components/alert/AlertContext';
+import { useCallback } from 'react';
 
-    const responseData = (result: any) => {
-        if (result.status && result.status > 300) {
-            console.log(result)
-            responseErro({
-                mensage: result.mensage,
-                mensagens: result.mensagens,
-                status: result.status
-            })
-        } else {
-            return result
-        }
-    }
+export const useApi = () => {
+    const { showAlert } = useAlert();
 
-
-    const responseErro = (erro: IErroResponse) => {
-        // console.error(erro)
-        // console.error(erro.mensagens)
-        // if (erro.mensagens.length > 0) {
-        //     let mensageList = ""
-        //     erro.mensagens.forEach((msg: string) => {
-        //         mensageList = `${mensageList} / ${msg}`
-        //     });
-        //     BasicModal({ mensage: mensageList })
-        // } else {
-        //     BasicModal({ mensage: erro?.mensage })
-        // }
-        //BasicModal({ mensage: erro?.mensage })
-        alert("Erro")
-        
-    }
+    const showError = useCallback((msg: string) => {
+        console.error("❌ API Error:", msg);
+        showAlert(msg, "error");
+    }, [showAlert]);
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-    const GETRequest = async <T>(path: string): Promise<T | null> => {
-        try {
-            const response = await fetch(`${baseUrl}${path}`, {
-                method: "GET"
-            })
+    // ============================================================
+    // 🔵 PADRÃO DE RETORNO SEGURO
+    // ============================================================
+    const safeReturn = (success: boolean, data: any, error: string | null) => ({
+        success,
+        data,
+        error
+    });
 
-            const result = await response.json()
-            return responseData(result)
-        } catch (erro: any | IErroResponse) {
-            responseErro(erro)
+    const parseResponse = async (response: Response) => {
+        try {
+            const contentType = response.headers.get("content-type");
+
+            if (contentType?.includes("application/json")) {
+                return await response.json();
+            }
+
+            return await response.text();
+        } catch {
+            return null;
         }
-        return null
-    }
+    };
 
-    const POSTRequest = async <T>(path: string, data: T): Promise<T | null> => {
+    // ============================================================
+    // 🔵 GET SEGURO
+    // ============================================================
+    const GETRequest = useCallback(async <T,>(path: string) => {
+        const fullUrl = `${baseUrl}${path}`;
+        console.log("🔵 GET:", fullUrl);
+
         try {
-            const response = await fetch(`${baseUrl}${path}`, {
+            const response = await fetch(fullUrl, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
+            });
+
+            const result = await parseResponse(response);
+
+            if (!response.ok) {
+                const msg = result?.mensage || `Erro ${response.status}`;
+                showError(msg);
+
+                return safeReturn(false, null, msg);
+            }
+
+            return safeReturn(true, result as T, null);
+
+        } catch (err: any) {
+            let msg = "Erro na requisição";
+
+            if (err?.message === "Failed to fetch") msg = "Servidor indisponível. Tente novamente mais tarde.";
+            if (err?.name === "TypeError") msg = "Erro de conexão com o servidor.";
+
+            showError(msg);
+            return safeReturn(false, null, msg);
+        }
+    }, [baseUrl, showError]);
+
+    // ============================================================
+    // 🟢 POST SEGURO
+    // ============================================================
+    const POSTRequest = useCallback(async <T,>(path: string, body: T) => {
+        const fullUrl = `${baseUrl}${path}`;
+        console.log("🟢 POST:", fullUrl);
+
+        try {
+            const response = await fetch(fullUrl, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            })
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body)
+            });
 
-            const result = await response.json()
-            return  responseData(result)
-        } catch (erro: any | IErroResponse) {
-            responseErro(erro)
+            const result = await parseResponse(response);
+
+            if (!response.ok) {
+                const msg = result?.mensage || `Erro ${response.status}`;
+                showError(msg);
+
+                return safeReturn(false, null, msg);
+            }
+
+            return safeReturn(true, result, null);
+
+        } catch (err: any) {
+            let msg = "Erro ao enviar dados";
+
+            if (err?.message === "Failed to fetch") msg = "Servidor indisponível. Tente novamente mais tarde.";
+            if (err?.name === "TypeError") msg = "Erro de conexão com o servidor.";
+
+            showError(msg);
+            return safeReturn(false, null, msg);
         }
-        return null
-    }
+    }, [baseUrl, showError]);
 
-    const PUTRequest = async <T>(path: string, data: T): Promise<T | null> => {
+    // ============================================================
+    // 🟡 PUT SEGURO
+    // ============================================================
+    const PUTRequest = useCallback(async <T,>(path: string, body: T) => {
+        const fullUrl = `${baseUrl}${path}`;
+        console.log("🟡 PUT:", fullUrl);
+
         try {
-            const response = await fetch(`${baseUrl}${path}`, {
+            const response = await fetch(fullUrl, {
                 method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            })
-            const result = await response.json()
-             return responseData(result)
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body)
+            });
 
-        } catch (erro: any | IErroResponse) {
-            responseErro(erro)
+            const result = await parseResponse(response);
+
+            if (!response.ok) {
+                const msg = result?.mensage || `Erro ${response.status}`;
+                showError(msg);
+
+                return safeReturn(false, null, msg);
+            }
+
+            return safeReturn(true, result, null);
+
+        } catch (err: any) {
+            let msg = "Erro ao atualizar dados";
+
+            if (err?.message === "Failed to fetch") msg = "Servidor indisponível. Tente novamente mais tarde.";
+            if (err?.name === "TypeError") msg = "Erro de conexão com o servidor.";
+
+            showError(msg);
+            return safeReturn(false, null, msg);
         }
-        return null
-    }
-
+    }, [baseUrl, showError]);
 
     return {
         GETRequest,
         POSTRequest,
         PUTRequest
-    }
-}
+    };
+};

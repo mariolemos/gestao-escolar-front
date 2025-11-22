@@ -1,4 +1,4 @@
-import { api } from "@/application/api/api"
+import { useApi } from "@/application/api/api"
 import { useEffect, useState } from "react"
 import { Link } from "@mui/material"
 import { IconeEditar, IconeExcluir } from "@/icon";
@@ -23,7 +23,7 @@ export const useColegio = () => {
 
     const {
         GETRequest
-    } = api()
+    } = useApi()
 
     const converteToColegio = (array: IColegio[]) => {
         const novoArray: IColegio[] = []
@@ -44,9 +44,9 @@ export const useColegio = () => {
     }
     const buscarColegio = async () => {
 
-        const response = await GETRequest<IColegio[]>("/colegio")
-        setRows(converteToColegio(response ?? []))
-        console.log("*****", response)
+        const {data} = await GETRequest<IColegio[]>("/colegio")
+        setRows(converteToColegio(data ?? []))
+        console.log("*****", data)
     }
 
     useEffect(() => {

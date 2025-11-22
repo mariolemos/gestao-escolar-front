@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "local": "docker compose -f docker-compose.dev.yml up --build",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint"

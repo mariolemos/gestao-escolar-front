@@ -1,6 +1,6 @@
 import { Link } from '@mui/material'
 import React, { useEffect, useState } from "react";
-import { api } from "@/application/api/api";
+import { useApi } from "@/application/api/api";
 import { IconeEditar, IconeExcluir } from '@/icon';
 
 interface IAluno {
@@ -34,7 +34,7 @@ export const useAluno = () => {
 
     const {
         GETRequest
-    } = api()
+    } = useApi()
 
     const converteToAlno = (array: IAluno[], Condicional: string) => {
         const novoArray: IAluno[] = []
@@ -67,10 +67,10 @@ export const useAluno = () => {
 
     const buscarAlunos = async () => {
 
-        const response = await GETRequest<IAluno[]>("/aluno")
-        setRows(converteToAlno(response ?? [], "Vespertino"))
+        const {data} = await GETRequest<IAluno[]>("/aluno")
+        setRows(converteToAlno(data ?? [], "Vespertino"))
         console.log("RRRRRR" , turno)
-        console.log("*****", response)
+        console.log("*****", data)
     }
 
     useEffect(() => {

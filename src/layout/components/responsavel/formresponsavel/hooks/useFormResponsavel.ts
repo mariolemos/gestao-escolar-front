@@ -1,4 +1,4 @@
-import { api } from "@/application/api/api"
+import { useApi  } from "@/application/api/api"
 import { IFormContato } from "@/components/contato/form"
 import { IFormEndereco } from "@/components/endereco/form"
 import { useEffect, useState } from "react"
@@ -17,7 +17,7 @@ export const useFormResponsavel = () => {
         GETRequest,
         POSTRequest,
         PUTRequest,
-    } = api()
+    } = useApi ()
 
     const initEndereco = {
         logradouro: "",
@@ -49,13 +49,13 @@ export const useFormResponsavel = () => {
     const [contatos, setContatos] = useState<IFormContato[]>([])
 
     const buscarResponsavelPorId = async (id: number) => {
-        const response = await GETRequest<IResponsavel>(`/responsavel/${id}`)
-        if (response) {
-            setResponsavel(response)
-            setEndereco(response.endereco)
+        const {data} = await GETRequest<IResponsavel>(`/responsavel/${id}`)
+        if (data) {
+            setResponsavel(data)
+            setEndereco(data.endereco)
         }
 
-        console.log("=====", response)
+        console.log("=====", data)
     }
     useEffect(() => {
         const params = new URLSearchParams(window.location.search)
@@ -101,9 +101,9 @@ export const useFormResponsavel = () => {
             responsavelId: 1,
             colegioId: 1
         }
-        const response = await PUTRequest<IResponsavel>(`/responsavel/${id}`, responsavelUpdate)
-        if (response) {
-            setResponsavel(response)
+        const {data} = await PUTRequest<IResponsavel>(`/responsavel/${id}`, responsavelUpdate)
+        if (data) {
+            setResponsavel(data)
         }
 
     }
@@ -111,9 +111,9 @@ export const useFormResponsavel = () => {
     const salvar = async () => {
         
 
-        const response = await POSTRequest<IResponsavel>("/responsavel", responsavel)
-        if (response) {
-            setResponsavel(response)
+        const {data} = await POSTRequest<IResponsavel>("/responsavel", responsavel)
+        if (data) {
+            setResponsavel(data)
         }
     }
 

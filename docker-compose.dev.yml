@@ -1,0 +1,17 @@
+services:
+  web:
+    container_name: gestao-escolar-front
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: npm run dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - WATCHPACK_POLLING=true
+      - WATCHPACK_POLLING_INTERVAL=100
+      - NEXT_WEBPACK_USEPOLLING=1
