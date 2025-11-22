@@ -7,7 +7,8 @@ export default function Colegio() {
     const {
         data: {
             rows,
-            cols
+            cols,
+            isLoading
         },
         action: {
 
@@ -22,7 +23,7 @@ export default function Colegio() {
                     <Link href={"/colegio/formColegio"}>
                         <PlusIcon style={{ color: "#fff", backgroundColor: "indigo" }} />
                     </Link></Button>
-                < DataTable cols={cols}  rows={rows}/>       
+                < DataTable cols={cols}  rows={rows} isloading={isLoading}/>       
         </Box>
     )
 }

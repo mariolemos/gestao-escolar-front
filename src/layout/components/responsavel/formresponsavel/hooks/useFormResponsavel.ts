@@ -1,7 +1,9 @@
-import { useApi  } from "@/application/api/api"
+import { useApi } from "@/application/api/api"
 import { IFormContato } from "@/components/contato/form"
 import { IFormEndereco } from "@/components/endereco/form"
+import { redirect } from "next/navigation"
 import { useEffect, useState } from "react"
+import { useRouter } from 'next/navigation';
 
 interface IResponsavel {
     id: number
@@ -17,7 +19,9 @@ export const useFormResponsavel = () => {
         GETRequest,
         POSTRequest,
         PUTRequest,
-    } = useApi ()
+    } = useApi();
+
+    const router = useRouter();
 
     const initEndereco = {
         logradouro: "",
@@ -49,7 +53,7 @@ export const useFormResponsavel = () => {
     const [contatos, setContatos] = useState<IFormContato[]>([])
 
     const buscarResponsavelPorId = async (id: number) => {
-        const {data} = await GETRequest<IResponsavel>(`/responsavel/${id}`)
+        const { data } = await GETRequest<IResponsavel>(`/responsavel/${id}`)
         if (data) {
             setResponsavel(data)
             setEndereco(data.endereco)
@@ -64,44 +68,45 @@ export const useFormResponsavel = () => {
             buscarResponsavelPorId(Number.parseInt(id));
         }
     }, [])
-     useEffect(() => {
-            setResponsavel(() => {
-                return {
-                    ...responsavel,
-                    endereco: endereco
-                }
-            })
-        }, [endereco])
-    
-        useEffect(() => {
-            setResponsavel(() => {
-                return {
-                    ...responsavel,
-                    contatos: contatos
-                }
-            })
-        }, [contatos])
+    useEffect(() => {
+        setResponsavel(() => {
+            return {
+                ...responsavel,
+                endereco: endereco
+            }
+        })
+    }, [endereco])
+
+    useEffect(() => {
+        setResponsavel(() => {
+            return {
+                ...responsavel,
+                contatos: contatos
+            }
+        })
+    }, [contatos])
 
     const registrar = () => {
-        
+
         removePropriedadeExcluirContatos()
 
         if (responsavel.id > 0) {
             atualizar(responsavel.id);
         } else {
-
             salvar();
         }
+
+        router.push('/responsavel')
     }
 
-    const atualizar = async (id: number) => {        
+    const atualizar = async (id: number) => {
 
         const responsavelUpdate = {
             ...responsavel,
             responsavelId: 1,
             colegioId: 1
         }
-        const {data} = await PUTRequest<IResponsavel>(`/responsavel/${id}`, responsavelUpdate)
+        const { data } = await PUTRequest<IResponsavel>(`/responsavel/${id}`, responsavelUpdate)
         if (data) {
             setResponsavel(data)
         }
@@ -109,9 +114,9 @@ export const useFormResponsavel = () => {
     }
 
     const salvar = async () => {
-        
 
-        const {data} = await POSTRequest<IResponsavel>("/responsavel", responsavel)
+
+        const { data } = await POSTRequest<IResponsavel>("/responsavel", responsavel)
         if (data) {
             setResponsavel(data)
         }

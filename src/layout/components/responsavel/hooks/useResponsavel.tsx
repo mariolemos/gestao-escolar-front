@@ -14,6 +14,8 @@ interface IResponsavel {
 export const useResponsavel = () => {
 
     const [rows, setRows] = useState<IResponsavel[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
+
     const cols = [
         "Id",
         "Nome",
@@ -46,12 +48,14 @@ export const useResponsavel = () => {
     }
 
     const buscarResponsavel = async () => {
+        setIsLoading(true)
 
         const {data} = await GETRequest<IResponsavel[]>("/responsavel")
         if(data){
             setRows(converteToResponsavel(data))
         }
         console.log("*****bbb", data)
+        setIsLoading(false)
     }
 
     useEffect(() => {
@@ -61,7 +65,8 @@ export const useResponsavel = () => {
     return {
         data: {
             cols,
-            rows
+            rows,
+            isLoading
         },
         action: {
             setRows

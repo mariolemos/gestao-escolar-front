@@ -13,6 +13,8 @@ interface IColegio {
 
 export const useColegio = () => {
     const [rows, setRows] = useState<IColegio[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
+
     const cols = [
         "Id",
         "Nome",
@@ -44,9 +46,13 @@ export const useColegio = () => {
     }
     const buscarColegio = async () => {
 
+        setIsLoading(true);
+        
         const {data} = await GETRequest<IColegio[]>("/colegio")
         setRows(converteToColegio(data ?? []))
         console.log("*****", data)
+
+        setIsLoading(false);
     }
 
     useEffect(() => {
@@ -57,6 +63,7 @@ export const useColegio = () => {
         data: {
             rows,
             cols,
+            isLoading
         },
         action: {
             setRows,

@@ -20,7 +20,7 @@ export default function LoadingButtons() {
       </Button>
 
       <CircularProgress
-        color="secondary"
+        color="primary"
         variant='indeterminate'
         value={100}
         size={100}

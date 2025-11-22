@@ -11,7 +11,8 @@ export default function Responsavel() {
     const {
         data: {
             rows,
-            cols
+            cols,
+            isLoading
         },
         action: {
             
@@ -26,7 +27,7 @@ export default function Responsavel() {
                 <Link href={"/responsavel/formResponsavel"}>
                     <PlusIcon style={{ color: "#fff", backgroundColor: "indigo" }} />
                 </Link></Button>
-            <DataTable cols={cols} rows={rows} />
+            <DataTable cols={cols} rows={rows} isloading={isLoading} />
         </Box>
     )
 }
