@@ -29,7 +29,7 @@ export const FormContato = ({
 
     const cols = ["Contato", "Tipo", "Excluir"]
     const [contato, setContato] = useState<IFormContato>({
-        contato: "14526-11246",
+        contato: "",
         tipo: TipoContato.CELULAR
     })
 
@@ -44,7 +44,7 @@ export const FormContato = ({
         setContatos([...contatos, novoContato]);
         setContato({
             contato: "",
-            tipo: TipoContato.FIXO
+            tipo: contato.tipo
         });
     }
 
@@ -87,8 +87,7 @@ export const FormContato = ({
                     size='small'
                     required={true}
                     label="Tipo "
-                    style={{ width: "55ch", margin: "10px" }}
-                    //defaultValue={contato.tipo}
+                    style={{ width: "55ch", margin: "10px" }}                    
                     defaultValue={TipoContato.FIXO}
 
                     type='string'

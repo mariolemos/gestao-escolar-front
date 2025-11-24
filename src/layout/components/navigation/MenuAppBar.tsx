@@ -14,7 +14,7 @@ import { blue } from '@mui/material/colors';
 export default function MenuAppBar() {
     const {
         data: {
-            
+
         },
         action: {
             handleChange,
@@ -64,9 +64,10 @@ export default function MenuAppBar() {
     }, [open]);
     return (
 
-        <AppBar position="static"        
+        <AppBar position="static"
         >
-            <Toolbar>                
+            <Box>
+                <Toolbar>
                     <Button
                         ref={anchorRef}
                         id="composition-button"
@@ -97,7 +98,7 @@ export default function MenuAppBar() {
                                         placement === 'bottom-start' ? 'left top' : 'left bottom',
                                 }}
                             >
-                                <Paper sx={{m: 6, bgcolor: 'aquamarine' }}>
+                                <Paper sx={{ m: 6, bgcolor: 'aquamarine' }}>
                                     <ClickAwayListener onClickAway={handleClose}>
                                         <MenuList
                                             autoFocusItem={open}
@@ -113,8 +114,9 @@ export default function MenuAppBar() {
                                 </Paper>
                             </Grow>
                         )}
-                    </Popper>               
-            </Toolbar>
+                    </Popper>
+                </Toolbar>
+            </Box>
         </AppBar>
 
         // <Box sx={{ flexGrow: 1, mb: 0.1 }}>

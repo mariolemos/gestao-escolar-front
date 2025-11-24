@@ -6,7 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { CircularProgress } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 import { Load } from '../Load/Load';
 
 interface IPropsDataTable {
@@ -18,6 +18,9 @@ interface IPropsDataTable {
 export const DataTable = ({ cols, rows, isloading = false }: IPropsDataTable) => {
     return (
         <>
+        <Box>
+
+        
             {!isloading ? (
                 <TableContainer component={Paper} >
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -47,6 +50,7 @@ export const DataTable = ({ cols, rows, isloading = false }: IPropsDataTable) =>
             ) : (
                <Load />
             )}
+            </Box>
         </>
     )
 }
