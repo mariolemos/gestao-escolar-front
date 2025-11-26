@@ -2,8 +2,9 @@ import { Link } from '@mui/material'
 import React, { useEffect, useState } from "react";
 import { useApi  } from "@/application/api/api";
 import { IconeEditar, IconeExcluir } from '@/icon';
+import { useApiResposnavel } from '@/application/api/apiResponsavel/useApiResponsavel';
 
-interface IResponsavel {
+export interface IResponsavel {
     id: number,
     nome: string,
     parentesco: String,
@@ -25,8 +26,8 @@ export const useResponsavel = () => {
     ]
 
     const {
-        GETRequest
-    } = useApi ()
+        listarResponsavel
+    } = useApiResposnavel ()
 
     const converteToResponsavel = (array: IResponsavel[]) => {
         const novoArray: IResponsavel[] = []
@@ -50,7 +51,7 @@ export const useResponsavel = () => {
     const buscarResponsavel = async () => {
         setIsLoading(true)
 
-        const {data} = await GETRequest<IResponsavel[]>("/responsavel")
+        const data = await listarResponsavel()
         if(data){
             setRows(converteToResponsavel(data))
         }
@@ -69,7 +70,7 @@ export const useResponsavel = () => {
             isLoading
         },
         action: {
-            setRows
+            setRows,            
         }
     }
 }

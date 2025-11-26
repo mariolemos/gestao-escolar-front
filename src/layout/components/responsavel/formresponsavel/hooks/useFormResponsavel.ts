@@ -4,6 +4,7 @@ import { IFormEndereco } from "@/components/endereco/form"
 import { redirect } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useRouter } from 'next/navigation';
+import { useApiResposnavel } from "@/application/api/apiResponsavel/useApiResponsavel"
 
 interface IResponsavel {
     id: number
@@ -16,10 +17,10 @@ interface IResponsavel {
 export const useFormResponsavel = () => {
 
     const {
-        GETRequest,
-        POSTRequest,
-        PUTRequest,
-    } = useApi();
+        atualizarResponsavel,
+        salvarResponsavel,
+        buscarResponsavelPorId
+    } = useApiResposnavel();
 
     const router = useRouter();
 
@@ -52,8 +53,8 @@ export const useFormResponsavel = () => {
     const [endereco, setEndereco] = useState<IFormEndereco>(initEndereco)
     const [contatos, setContatos] = useState<IFormContato[]>([])
 
-    const buscarResponsavelPorId = async (id: number) => {
-        const { data } = await GETRequest<IResponsavel>(`/responsavel/${id}`)
+    const buscarResponsavel = async (id: number) => {
+        const data = await buscarResponsavelPorId(id)
         if (data) {
             setResponsavel(data)
             setEndereco(data.endereco)
@@ -65,7 +66,7 @@ export const useFormResponsavel = () => {
         const params = new URLSearchParams(window.location.search)
         const id = params.get("id")
         if (id) {
-            buscarResponsavelPorId(Number.parseInt(id));
+            buscarResponsavel(Number.parseInt(id));
         }
     }, [])
     useEffect(() => {
@@ -105,18 +106,16 @@ export const useFormResponsavel = () => {
             ...responsavel,
             responsavelId: 1,
             colegioId: 1
+            
         }
-        const { data } = await PUTRequest<IResponsavel>(`/responsavel/${id}`, responsavelUpdate)
+        const data = await atualizarResponsavel(id, responsavelUpdate)
         if (data) {
             setResponsavel(data)
         }
-
     }
 
     const salvar = async () => {
-
-
-        const { data } = await POSTRequest<IResponsavel>("/responsavel", responsavel)
+        const data = await salvarResponsavel(responsavel)
         if (data) {
             setResponsavel(data)
         }

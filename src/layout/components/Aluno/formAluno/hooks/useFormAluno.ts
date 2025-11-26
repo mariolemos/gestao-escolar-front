@@ -1,9 +1,13 @@
 import { useApi } from "@/application/api/api"
+import { useApiAluno } from "@/application/api/apiAluno/useApiAluno"
+import { useApiColegio } from "@/application/api/apiColegio/useApiColegio"
+import { useApiResposnavel } from "@/application/api/apiResponsavel/useApiResponsavel"
 import { IFormEndereco } from "@/components/endereco/form"
-import { idID } from "@mui/material/locale"
-import { useEffect, useState } from "react"
+import { IColegio } from "@/layout/components/colegio/hooks/useColegio"
+import { IResponsavel } from "@/layout/components/responsavel/hooks/useResponsavel"
+import { use, useEffect, useState } from "react"
 
-interface IAluno {
+export interface IAluno {
     id: number
     nome: string
     dtNascimento: Date
@@ -26,10 +30,11 @@ interface IAluno {
 export const useFormAluno = () => {
 
     const {
-        GETRequest,
-        POSTRequest,
-        PUTRequest,
-    } = useApi()
+        listarAluno,
+        atualizarAluno,
+        buscarAlunoPorId,
+        salvarAluno
+    } = useApiAluno()
 
     const turno = [{
         id: 1,
@@ -47,7 +52,7 @@ export const useFormAluno = () => {
         id: 4,
         nome: "Integral"
     },
-       
+
     ]
 
     const initEndereco = {
@@ -62,7 +67,7 @@ export const useFormAluno = () => {
     }
 
     const initAluno = {
-        
+
         id: 0,
         nome: "",
         dtNascimento: new Date(),
@@ -82,10 +87,34 @@ export const useFormAluno = () => {
     }
 
     const [aluno, setAluno] = useState<IAluno>(initAluno)
-    const [endereco, setEndereco] = useState<IFormEndereco>(initEndereco)   
+    const [endereco, setEndereco] = useState<IFormEndereco>(initEndereco)
+    const [responsaveis, setResponsaveis] = useState<IResponsavel[]>([])
+    const [colegios, setColegios] = useState<IColegio[]>([])
 
-    const buscarAlunoPorId = async (id: number) => {
-        const { data } = await GETRequest<IAluno>(`/aluno/${id}`)
+    const {
+        listarResponsavel
+
+    } = useApiResposnavel()
+
+    const listarResponsaveis = async () => {
+
+        const data = await listarResponsavel()
+
+        setResponsaveis(data)
+    }
+
+    const {
+        listarColegio
+    } = useApiColegio()
+
+    const listarColegios = async () => {
+        const data = await listarColegio()
+
+        setColegios(data)
+    }
+
+    const buscarAluno = async (id: number) => {
+        const  data  = await buscarAlunoPorId(id)
         if (data) {
             setAluno(data)
             setEndereco(data.endereco)
@@ -97,8 +126,10 @@ export const useFormAluno = () => {
         const params = new URLSearchParams(window.location.search)
         const id = params.get("id")
         if (id) {
-            buscarAlunoPorId(Number.parseInt(id));
+            buscarAluno(Number.parseInt(id));
         }
+        listarResponsaveis()
+        listarColegios()
     }, [])
 
     useEffect(() => {
@@ -110,43 +141,46 @@ export const useFormAluno = () => {
         })
     }, [endereco])
 
-    const registrar =  () => {
-        if(aluno.id > 0) {
+    const registrar = () => {
+        if (aluno.id > 0) {
             atualizar(aluno.id);
-        }else {
-
+        } else {
             salvar();
-        }               
+        }
     }
 
-    const atualizar =  async (id: number) => {
+    const atualizar = async (id: number) => {
 
         const alunoUpdate = {
-            ...aluno, 
+            ...aluno,
             responsavelId: 1,
             colegioId: 1
         }
-        const { data } = await PUTRequest<IAluno>(`/aluno/${id}`, alunoUpdate)
+        const  data  = await atualizarAluno(id, aluno)
         if (data) {
             setAluno(data)
-        } 
+        }
 
     }
 
     const salvar = async () => {
-        const { data } = await POSTRequest<IAluno>("/aluno", aluno)
+        const  data  = await salvarAluno(aluno)
         if (data) {
             setAluno(data)
-        }      
+        }
     }
     return {
-        data: {           
+        data: {
             turno,
-            aluno,            
+            aluno,
+            responsaveis,
+            colegios
         },
-        action: {            
+        action: {
             registrar,
-            setAluno,            
+            setAluno,
+            setEndereco
+
         }
     }
 }

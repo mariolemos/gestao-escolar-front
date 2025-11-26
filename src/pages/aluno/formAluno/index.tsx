@@ -5,27 +5,24 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import { useFormAluno } from '../../../layout/components/aluno/formAluno/hooks/useFormAluno';
 import FormEndereco, { IFormEndereco } from '@/components/endereco/form';
-import colegio from '@/pages/colegio';
-import FormResponsavel from '@/pages/responsavel/formResponsavel';
-
 
 export default function FormAluno() {
     const {
         data: {
             aluno,
             turno,
+            responsaveis,
+            colegios 
+            
+                           
 
         },
         action: {
             registrar,
             setAluno,
+            setEndereco            
         }
-    } = useFormAluno()
-
-
-    function setEndereco(value: SetStateAction<IFormEndereco>): void {
-        throw new Error('Function not implemented.');
-    }
+    } = useFormAluno()    
 
     return (
         <Box>
@@ -89,16 +86,25 @@ export default function FormAluno() {
             <TextField
                 onChange={(e) => setAluno((aluno) => {
                     return {
-                        ...aluno, responsavel: e.target.value
+                        ...aluno, responsavelId: Number.parseInt(e.target.value)
                     }
                 })}
-                slotProps={{ inputLabel: { shrink: true } }}
+                slotProps={{ inputLabel: { shrink: true }, select: {
+                        native: true
+                    } }}
                 size='small'
                 sx={{ width: "26ch", margin: "10px" }}
                 label="Responsável"
                 defaultValue={aluno.responsavelId}
                 required={true}
-            />
+                select                
+            >
+                {responsaveis.map((option) => (
+                    <option key={option.id} value={option.id}>
+                        {option.nome}
+                    </option>
+                ))}
+            </TextField>
 
             <FormEndereco endereco={aluno.endereco} setEndereco={setEndereco} />
 
@@ -137,16 +143,25 @@ export default function FormAluno() {
             <TextField
                 onChange={(e) => setAluno((aluno) => {
                     return {
-                        ...aluno, colegio: e.target.value
+                        ...aluno, colegioId: Number.parseInt(e.target.value)
                     }
                 })}
-                slotProps={{ inputLabel: { shrink: true } }}
+                slotProps={{ inputLabel: { shrink: true }, select: {
+                        native: true
+                    } }}
                 size='small'
                 label="Colégio"
                 sx={{ width: "40ch", margin: "10px" }}
                 defaultValue={aluno.colegioId}
                 required={true}
-            />
+                select
+            >
+                {colegios.map((option) => (
+                    <option key={option.id} value={option.id}>
+                        {option.nome}
+                    </option>
+                ))}
+                </TextField>
             <TextField
                 onChange={(e) => setAluno((aluno) => {
                     return {

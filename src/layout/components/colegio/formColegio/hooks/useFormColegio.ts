@@ -1,4 +1,5 @@
 import { useApi } from "@/application/api/api"
+import { useApiColegio } from "@/application/api/apiColegio/useApiColegio"
 import { IFormContato } from "@/components/contato/form"
 import { IFormEndereco } from "@/components/endereco/form"
 import { endianness } from "os"
@@ -6,7 +7,7 @@ import { useEffect, useState } from "react"
 
 
 
-interface IColegio {
+export interface IColegio {
     id: number
     nome: string
     horario: string
@@ -17,10 +18,10 @@ interface IColegio {
 
 export const useFormColegio = () => {
     const {
-        GETRequest,
-        POSTRequest,
-        PUTRequest
-    } = useApi()
+        atualizarColegio,
+        salvarColegio,
+        buscarColegioPorId        
+    } = useApiColegio();
 
     const initEndereco = {
         logradouro: "",
@@ -48,8 +49,8 @@ export const useFormColegio = () => {
     const [contato, setContato] = useState<IFormContato>()
     const [contatos, setContatos] = useState<IFormContato[]>([])
 
-    const buscarColegioPorId = async (id: number) => {
-        const { data } = await GETRequest<IColegio>(`/colegio/${id}`)
+    const buscarColegio = async (id: number) => {
+        const  data  = await buscarColegioPorId(id)
         if (data) {
             setColegio(data)
             setEndereco(data.endereco)
@@ -80,7 +81,7 @@ export const useFormColegio = () => {
         const params = new URLSearchParams(window.location.search)
         const id = params.get("id")
         if (id) {
-            buscarColegioPorId(Number.parseInt(id));
+            buscarColegio(Number.parseInt(id));
         }
     }, [])
 
@@ -97,18 +98,18 @@ export const useFormColegio = () => {
 
         const colegioUpdate = {
             ...colegio,
+             colegioId: 1
         }
-        const { data } = await PUTRequest<IColegio>(`/colegio/${id}`, colegioUpdate)
+        const data = await atualizarColegio(id, colegioUpdate)
         if (data) {
             setColegio(data)
         }
-
     }
     const salvar = async () => {
 
         removePropriedadeExcluirContatos()
 
-        const { data } = await POSTRequest<IColegio>("/colegio", colegio)
+        const  data  = await salvarColegio(colegio)
         if (data) {
             setColegio(data)
         }
@@ -128,7 +129,8 @@ export const useFormColegio = () => {
         data: {
             colegio,
             contato,
-            contatos
+            contatos,
+            endereco
         },
         action: {
             setColegio,

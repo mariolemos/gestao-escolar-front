@@ -2,8 +2,9 @@ import { useApi } from "@/application/api/api"
 import { useEffect, useState } from "react"
 import { Link } from "@mui/material"
 import { IconeEditar, IconeExcluir } from "@/icon";
+import { useApiColegio } from "@/application/api/apiColegio/useApiColegio";
 
-interface IColegio {
+export interface IColegio {
     id: number,
     nome: string,
     horario: string,        
@@ -24,8 +25,8 @@ export const useColegio = () => {
     ]
 
     const {
-        GETRequest
-    } = useApi()
+        listarColegio
+    } = useApiColegio()
 
     const converteToColegio = (array: IColegio[]) => {
         const novoArray: IColegio[] = []
@@ -48,8 +49,12 @@ export const useColegio = () => {
 
         setIsLoading(true);
         
-        const {data} = await GETRequest<IColegio[]>("/colegio")
-        setRows(converteToColegio(data ?? []))
+        const data = await listarColegio()
+        if(data) {
+            setRows(converteToColegio(data))
+            setIsLoading(false)
+        }
+        
         console.log("*****", data)
 
         setIsLoading(false);

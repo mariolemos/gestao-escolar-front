@@ -2,6 +2,7 @@ import { Link } from '@mui/material'
 import React, { useEffect, useState } from "react";
 import { useApi } from "@/application/api/api";
 import { IconeEditar, IconeExcluir } from '@/icon';
+import { useApiAluno } from '@/application/api/apiAluno/useApiAluno';
 
 interface IAluno {
     id: number,
@@ -33,8 +34,8 @@ export const useAluno = () => {
     ]
 
     const {
-        GETRequest
-    } = useApi()
+        listarAluno
+    } = useApiAluno()
 
     const converteToAlno = (array: IAluno[], Condicional: string) => {
         const novoArray: IAluno[] = []
@@ -67,7 +68,7 @@ export const useAluno = () => {
 
     const buscarAlunos = async () => {
 
-        const {data} = await GETRequest<IAluno[]>("/aluno")
+        const data = await listarAluno()
         setRows(converteToAlno(data ?? [], "Vespertino"))
         console.log("RRRRRR" , turno)
         console.log("*****", data)
