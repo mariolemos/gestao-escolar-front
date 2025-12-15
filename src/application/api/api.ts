@@ -9,6 +9,10 @@ export const useApi = () => {
         showAlert(msg, "error");
     }, [showAlert]);
 
+    const showSuccess = useCallback((msg?: string) => {        
+        showAlert(msg ?? "Requisição realizada com sucesso", "success");
+    }, [showAlert]);
+
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
     // ============================================================
@@ -56,6 +60,8 @@ export const useApi = () => {
                 return safeReturn(false, null, msg);
             }
 
+            
+
             return safeReturn(true, result as T, null);
 
         } catch (err: any) {
@@ -91,6 +97,7 @@ export const useApi = () => {
 
                 return safeReturn(false, null, msg);
             }
+            showSuccess()
 
             return safeReturn(true, result, null);
 
@@ -127,6 +134,7 @@ export const useApi = () => {
 
                 return safeReturn(false, null, msg);
             }
+            showSuccess()
 
             return safeReturn(true, result, null);
 

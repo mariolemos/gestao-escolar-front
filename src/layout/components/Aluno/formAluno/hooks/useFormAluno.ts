@@ -2,20 +2,22 @@ import { useApi } from "@/application/api/api"
 import { useApiAluno } from "@/application/api/apiAluno/useApiAluno"
 import { useApiColegio } from "@/application/api/apiColegio/useApiColegio"
 import { useApiResposnavel } from "@/application/api/apiResponsavel/useApiResponsavel"
+import { utils } from "@/application/util"
+import { IFormContato } from "@/components/contato/form"
 import { IFormEndereco } from "@/components/endereco/form"
 import { IColegio } from "@/layout/components/colegio/hooks/useColegio"
 import { IResponsavel } from "@/layout/components/responsavel/hooks/useResponsavel"
 import { use, useEffect, useState } from "react"
 
 export interface IAluno {
+
     id: number
     nome: string
-    dtNascimento: Date
+    dtNascimento: string
     cpf: string
     rg: string
-    //endereco: string
     endereco: IFormEndereco
-    contato: string
+    contatos: IFormContato[]
     turno: string
     turma: string
     serie: string
@@ -55,6 +57,11 @@ export const useFormAluno = () => {
 
     ]
 
+    const initContatos = {
+        contato: "",
+        tipo: 0
+    }
+
     const initEndereco = {
         id: 0,
         logradouro: "",
@@ -70,11 +77,11 @@ export const useFormAluno = () => {
 
         id: 0,
         nome: "",
-        dtNascimento: new Date(),
+        dtNascimento: "",
         cpf: "",
         rg: "",
         endereco: initEndereco,
-        contato: "",
+        contatos: [initContatos],
         turno: "",
         turma: "",
         serie: "",
@@ -86,10 +93,17 @@ export const useFormAluno = () => {
         status: ""
     }
 
+
+
     const [aluno, setAluno] = useState<IAluno>(initAluno)
     const [endereco, setEndereco] = useState<IFormEndereco>(initEndereco)
     const [responsaveis, setResponsaveis] = useState<IResponsavel[]>([])
     const [colegios, setColegios] = useState<IColegio[]>([])
+    const [contatos, setContatos] = useState<IFormContato[]>([])
+    const [erro, setErro] = useState('')
+    const {
+        isValidation
+    } = utils()
 
     const {
         listarResponsavel
@@ -114,7 +128,7 @@ export const useFormAluno = () => {
     }
 
     const buscarAluno = async (id: number) => {
-        const  data  = await buscarAlunoPorId(id)
+        const data = await buscarAlunoPorId(id)
         if (data) {
             setAluno(data)
             setEndereco(data.endereco)
@@ -141,11 +155,18 @@ export const useFormAluno = () => {
         })
     }, [endereco])
 
+
+
     const registrar = () => {
-        if (aluno.id > 0) {
-            atualizar(aluno.id);
+        if (!isValidation(aluno, ['nome'])) {
+            alert("Campo inconsistente")
         } else {
-            salvar();
+            if (aluno.id > 0) {
+                atualizar(aluno.id);
+            } else {
+                salvar();
+            }
+
         }
     }
 
@@ -156,17 +177,17 @@ export const useFormAluno = () => {
             responsavelId: 1,
             colegioId: 1
         }
-        const  data  = await atualizarAluno(id, aluno)
+        const data = await atualizarAluno(id, aluno)
         if (data) {
-            setAluno(data)
+            setAluno(initAluno)
         }
 
     }
 
     const salvar = async () => {
-        const  data  = await salvarAluno(aluno)
+        const data = await salvarAluno(aluno)
         if (data) {
-            setAluno(data)
+            setAluno(initAluno)
         }
     }
     return {
@@ -174,13 +195,16 @@ export const useFormAluno = () => {
             turno,
             aluno,
             responsaveis,
-            colegios
+            colegios,
+            contatos,
+            erro
         },
         action: {
             registrar,
             setAluno,
-            setEndereco
-
+            setEndereco,
+            setContatos,
+            setErro
         }
     }
 }

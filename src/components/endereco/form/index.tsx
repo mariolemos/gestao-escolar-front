@@ -33,7 +33,7 @@ export default function FormEndereco({
     return (
         <>
             <Box sx={{ width: 1 }}>
-                <Typography sx={{ bgcolor: "#cccc", borderRadius: "1rex", textAlign: "center", width: 1 }}>Endereço</Typography>
+                <Typography sx={{ bgcolor: "#cccc", textAlign: "center", width: 1 }}>Endereço</Typography>
                 <TextField
                     onChange={(e) => setEndereco((endereco) => {
                         return {
@@ -81,7 +81,7 @@ export default function FormEndereco({
                     slotProps={{ inputLabel: { shrink: true } }}
                     size='small'
                     label="Bairro"
-                    style={{ width: "35ch", margin: "10px" }}
+                    style={{ width: "43ch", margin: "10px" }}
                     defaultValue={endereco.bairro}
                 />
                 <TextField
@@ -107,7 +107,7 @@ export default function FormEndereco({
                     size='small'
                     required
                     label="Cidade"
-                    style={{ width: "60ch", margin: "10px" }}
+                    style={{ width: "65ch", margin: "10px" }}
                     defaultValue={endereco.cidade}
                 />
                 <TextField
@@ -120,7 +120,7 @@ export default function FormEndereco({
                     size='small'
                     required
                     label="Estado"
-                    style={{ width: "50ch", margin: "10px" }}
+                    style={{ width: "56ch", margin: "10px" }}
                     defaultValue={endereco.estado}
                 />
             </Box>

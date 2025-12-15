@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useApi } from "@/application/api/api";
 import { IconeEditar, IconeExcluir } from '@/icon';
 import { useApiAluno } from '@/application/api/apiAluno/useApiAluno';
+import Aluno from '../Aluno';
 
 interface IAluno {
     id: number,
@@ -37,6 +38,7 @@ export const useAluno = () => {
         listarAluno
     } = useApiAluno()
 
+    
     const converteToAlno = (array: IAluno[], Condicional: string) => {
         const novoArray: IAluno[] = []
         array.map(aluno => {

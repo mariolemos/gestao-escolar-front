@@ -49,7 +49,7 @@ export default function FormColegio() {
                         label="Nome "
                         style={{ width: "75ch", margin: "10px" }}
                         defaultValue={colegio.nome}
-                        type='string'
+                        type='string'                    
                     />
                     <TextField
                         onChange={(e) => setColegio((colegio) => {

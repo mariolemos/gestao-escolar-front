@@ -8,7 +8,7 @@ import { useState } from 'react'
 
 export default function Aluno() {
 
-    const [turnoCondicional, setTurnoCondicional] = useState('Todos');
+    const [turnoCondicional, setTurnoCondicional] = useState('Matutino');
 
     const {
         data: {
@@ -30,10 +30,14 @@ export default function Aluno() {
             <Button variant="contained" sx={{ width: "50px", marginRight: "200px", backgroundColor: "indigo" }}><IconePesquisar /></Button>
             <Button variant="contained" sx={{ width: "50px", margin: "5px", backgroundColor: "indigo" }}><IconeVoltar /></Button>
             <Button variant="contained" sx={{ backgroundColor: "indigo" }} >
-                <Link href={"/aluno/formAluno"}>
+                <Link href={"/aluno/formAluno"} >
                     <PlusIcon style={{ color: "#fff", backgroundColor: "indigo" }} />
                 </Link></Button>
+                
             <DataTable cols={cols} rows={rows} />
         </Box>
     )
+    // return {
+    //     turnoCondicional
+    // }
 }

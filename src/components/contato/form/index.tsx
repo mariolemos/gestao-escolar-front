@@ -1,6 +1,6 @@
 import { IconeExcluir, PlusIcon } from "@/icon"
 import { DataTable } from "@/layout/components/dataTable/DataTable"
-import { Box, Button, TextField } from "@mui/material"
+import { Box, Button, TextField, Typography } from "@mui/material"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 
 interface IPropsContato {
@@ -58,6 +58,7 @@ export const FormContato = ({
     return (
         <>
             <Box sx={{ width: 1 }}>
+                <Typography sx={{ bgcolor: "#cccc", textAlign: "center", width: 1 }}>Contatos</Typography>
                 <TextField
                     onChange={(e) => setContato((contato) => {
                         return {
@@ -75,7 +76,7 @@ export const FormContato = ({
                 <TextField
                     onChange={(e) => setContato((contato) => {
                         return {
-                            ...contato, tipo: e.target.value
+                            ...contato, tipo: parseInt(e.target.value)
                         }
                     })}
                     slotProps={{
