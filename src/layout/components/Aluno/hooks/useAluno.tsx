@@ -4,6 +4,8 @@ import { useApi } from "@/application/api/api";
 import { IconeEditar, IconeExcluir } from '@/icon';
 import { useApiAluno } from '@/application/api/apiAluno/useApiAluno';
 import Aluno from '../Aluno';
+import { log } from 'console';
+import aluno from '@/pages/aluno';
 
 interface IAluno {
     id: number,
@@ -12,16 +14,13 @@ interface IAluno {
     serie: string,
     turma: string,
     editar?: React.ReactNode,
-    //nomedaMae?: string,
-    //nomeDoPai?: string,
-    //convenioMedico?: string,
     ativo: boolean,
     excluir?: React.ReactNode,
-    // endereco?: string,    
 }
 
 export const useAluno = () => {
-    const [turno, setTurno] = useState('Todos');
+    const [turno, setTurno] = useState<string | undefined>();
+    const [filtrarNome, setFiltrarNome] = useState<string>();
     const [rows, setRows] = useState<IAluno[]>([]);
     const cols = [
         "Id",
@@ -38,8 +37,18 @@ export const useAluno = () => {
         listarAluno
     } = useApiAluno()
 
-    
-    const converteToAlno = (array: IAluno[], Condicional: string) => {
+    useEffect(() => {
+        setFiltrarNome("")
+        buscarAlunos()
+    }, [turno])
+
+    useEffect(() => {
+        setTurno(undefined)
+        buscarAlunos()
+    }, [filtrarNome])
+
+
+    const converteToAlno = (array: IAluno[]) => {
         const novoArray: IAluno[] = []
         array.map(aluno => {
             let novoAluno: IAluno = {
@@ -58,27 +67,27 @@ export const useAluno = () => {
             }
             novoArray.push(novoAluno)
         })
-        if(Condicional !== turno) {
-            return novoArray
-            console.log(Condicional)
-        }else {
-            return novoArray.filter(novoArray => novoArray.turno === Condicional)
-            console.log(Condicional)
+
+        return filtrarAlunos(novoArray)
+    }
+
+    const filtrarAlunos = (novoArray: IAluno[]) => {
+
+        if (turno) {
+            return novoArray.filter(novoArray => novoArray.turno === turno)
         }
-        
+        if (filtrarNome) {
+           return novoArray.filter(novoArray => novoArray.nome.toLowerCase().includes(filtrarNome.toLowerCase() || ""))
+        }
+        return novoArray
     }
 
     const buscarAlunos = async () => {
-
         const data = await listarAluno()
-        setRows(converteToAlno(data ?? [], "Vespertino"))
-        console.log("RRRRRR" , turno)
-        console.log("*****", data)
+        setRows(converteToAlno(data ?? []))        
     }
 
-    useEffect(() => {
-        buscarAlunos()
-    }, [])
+
 
     return {
         data: {
@@ -87,7 +96,8 @@ export const useAluno = () => {
         },
         action: {
             turno,
-            setTurno,            
+            setTurno,
+            setFiltrarNome
         }
     }
 }

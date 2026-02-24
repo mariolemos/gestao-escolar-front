@@ -11,18 +11,19 @@ export default function Colegio() {
             isLoading
         },
         action: {
-
+            setFiltrarNome,
         }
     } = useColegio()
     return (
-        <Box >
-            <Input placeholder='Pesquisar Aluno' style={{ width: "550px", border: "solid indigo 2px", borderRadius: "1rex" }} />
-            <Button variant="contained" style={{ width: "50px", marginRight: "550px", backgroundColor: "indigo" }}><IconePesquisar /></Button>
-            <Button variant="contained" style={{ width: "50px", margin: "5px", backgroundColor: "indigo" }}><IconeVoltar /></Button>
-            <Button variant="contained" style={{ backgroundColor: "indigo" }} >
+        <Box width= "100%" margin={0.5}>
+            <Typography variant="h4" color="#fff" sx={{ bgcolor: "#227afdff", textAlign: "center" }}>Relação de Colégios</Typography>
+            <Input placeholder='Pesquisar Colégio' sx={{ width: "50%", border: "solid indigo 2px", borderRadius: "1rex", marginRight: "36%" }} onChange={e => setFiltrarNome(e.target.value)} />            
+            <Button variant="contained" style={{ width: "5%", margin: "1%", backgroundColor: "indigo", marginRight: "1%" }}><IconeVoltar /></Button>
+            <Button variant="contained" style={{ width: "5%", backgroundColor: "indigo" }} >
                 <Link href={"/colegio/formColegio"}>
                     <PlusIcon style={{ color: "#fff", backgroundColor: "indigo" }} />
-                </Link></Button>
+                </Link>
+            </Button>
             < DataTable cols={cols} rows={rows} isloading={isLoading} />
         </Box>
     )

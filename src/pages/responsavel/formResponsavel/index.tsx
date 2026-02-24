@@ -11,8 +11,8 @@ export default function FormResponsavel() {
     const {
         data: {
             responsavel,
-             contato,
-             contatos
+            contato,
+            contatos
         },
         action: {
             registrar,
@@ -25,16 +25,10 @@ export default function FormResponsavel() {
 
     return (
         <>
-            <Box sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
+            <Box width="100%" sx={{margin: "0.5%"
             }} >
-                <Typography variant="h4" component="div" sx={{ flexGrow: 2, textAlign: "center" }}>
-                    Cadastro Responsável
-                </Typography>
-
-                <Box sx={{ display: "flex" }}>
+                <Typography variant="h4" color="#fff" sx={{ bgcolor: "#227afdff", textAlign: "center" }}>Cadastro Responsáveis</Typography>
+                <Box>
                     <TextField
                         onChange={(e) => setResponsavel((responsavel) => {
                             return {
@@ -45,8 +39,22 @@ export default function FormResponsavel() {
                         size='small'
                         required={true}
                         label="Nome "
-                        style={{ width: "75ch", margin: "10px" }}
+                        style={{ width: "47%", margin: "1%" }}
                         defaultValue={responsavel.nome}
+                        type='string'
+                    />
+                    <TextField
+                        onChange={(e) => setResponsavel((responsavel) => {
+                            return {
+                                ...responsavel, cpf: e.target.value
+                            }
+                        })}
+                        slotProps={{ inputLabel: { shrink: true } }}
+                        size='small'
+                        required={true}
+                        label="CPF"
+                        style={{ width: "24%", margin: "1%" }}
+                        defaultValue={responsavel.cpf}
                         type='string'
                     />
                     <TextField
@@ -58,29 +66,17 @@ export default function FormResponsavel() {
                         slotProps={{ inputLabel: { shrink: true } }}
                         size='small'
                         required={true}
-                        label="Patentesco"
-                        style={{ width: "73ch", margin: "10px" }}
+                        label="Parentesco"
+                        style={{ width: "21%", margin: "1%" }}
                         defaultValue={responsavel.parentesco}
                         type='string'
                     />
-
                 </Box>
-                <Box sx={{ display: "flex" }}>
-                    <FormEndereco endereco={responsavel.endereco} setEndereco={setEndereco} />
-                </Box>
-                <Box sx={{
-                    bgcolor: "#ccc",
-                    textAlign: "center",
-                    height: "35px",
-                    borderRadius: ".5rex",
-                    fontSize: "2.5ch",
-                    marginLeft: "10px",
-                    marginRight: "15px"
-                }}>Contatos</Box>
+                <FormEndereco endereco={responsavel.endereco} setEndereco={setEndereco} />
                 <FormContato contatos={responsavel.contatos} setContatos={setContatos} />
                 <Button variant="contained"
                     onClick={registrar}
-                    style={{ width: "172ch", margin: "10px", height: "40px" }}
+                    style={{ width: "172ch", margin: "1%", height: "1%" }}
                 >Salvar</Button>
             </Box>
         </>

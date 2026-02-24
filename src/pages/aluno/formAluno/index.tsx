@@ -28,12 +28,11 @@ export default function FormAluno() {
     } = useFormAluno()    
     
     return (
-        <Box>
-            <Typography variant="h4" component="div" sx={{ flexGrow: 2, textAlign: "center", bgcolor: "#cccc" }}>
-                Cadastro Aluno
-            </Typography>
+        <Box width="100%" sx={{margin: "0.5%"}}>            
+             <Typography variant="h4" color="#fff" sx={{ bgcolor: "#227afdff", textAlign: "center" }}>Cadastro 
+                
+                Aluno</Typography>
             <TextField
-
                 onChange={(e) => setAluno((aluno) => {
                     console.log(e)
                     return {
@@ -42,14 +41,12 @@ export default function FormAluno() {
                 })}
 
                 onChangeCapture={(e) => setErro(e.target.dispatchEvent.name)}
-                error={!erro}
-                helperText={!erro ? 'Digite o nome do Aluno' : "Campo Obrigatório"}
-
+                error={!erro}             
                 slotProps={{ inputLabel: { shrink: true } }}
                 size='small'
                 required
                 label="Nome "
-                sx={{ width: "50ch", margin: "10px" }}
+                sx={{ width: "33%", margin: "1%" }}
                 defaultValue={aluno.nome}
             />
             <TextField
@@ -62,7 +59,7 @@ export default function FormAluno() {
                 size='small'
                 required
                 label="CPF"
-                sx={{ width: "20ch", margin: "10px" }}
+                sx={{ width: "12%", margin: "1%" }}
                 defaultValue={aluno.cpf}
                
             />
@@ -75,7 +72,7 @@ export default function FormAluno() {
                 slotProps={{ inputLabel: { shrink: true } }}
                 size='small'
                 label="RG"
-                sx={{ width: "20ch", margin: "10px" }}
+                sx={{ width: "12%", margin: "1%" }}
                 defaultValue={aluno.rg}
             />
             <TextField
@@ -89,7 +86,7 @@ export default function FormAluno() {
                 size='small'
                 id="outlined-error-helper-text"
                 label="Data Nascimento"
-                sx={{ width: "21ch", margin: "10px" }}
+                sx={{ width: "13%", margin: "1%" }}
                 defaultValue={aluno.dtNascimento}
             />
             <TextField
@@ -104,7 +101,7 @@ export default function FormAluno() {
                     }
                 }}
                 size='small'
-                sx={{ width: "29ch", margin: "10px" }}
+                sx={{ width: "20%", margin: "1%" }}
                 label="Responsável"
                 defaultValue={aluno.responsavelId}
                 required={true}
@@ -120,11 +117,7 @@ export default function FormAluno() {
 
             <FormEndereco endereco={aluno.endereco} setEndereco={setEndereco} />
 
-            <Typography sx={{
-                bgcolor: "#ccc",
-                color: "#ccc",
-                height: "10px"
-            }}>f</Typography>
+            <Typography sx={{bgcolor: "#ccc", color: "#ccc", height: "10px", width: "99%"}}></Typography>           
 
             <TextField
                 onChange={(e) => setAluno((aluno) => {
@@ -135,7 +128,7 @@ export default function FormAluno() {
                 slotProps={{ inputLabel: { shrink: true } }}
                 size='small'
                 label="Nome do Pai"
-                sx={{ width: "52ch", margin: "10px" }}
+                sx={{ width: "35%", margin: "1%" }}
                 defaultValue={aluno.nomePai}
             />
             <TextField
@@ -147,7 +140,7 @@ export default function FormAluno() {
                 slotProps={{ inputLabel: { shrink: true } }}
                 size='small'
                 label="Nome da Mãe"
-                sx={{ width: "52ch", margin: "10px" }}
+                sx={{ width: "35%", margin: "1%" }}
                 defaultValue={aluno.nomeMae}
             />
 
@@ -165,7 +158,7 @@ export default function FormAluno() {
                 }}
                 size='small'
                 label="Colégio"
-                sx={{ width: "40ch", margin: "10px" }}
+                sx={{ width: "24%", margin: "1%" }}
                 defaultValue={aluno.colegioId}
                 required={true}
                 select
@@ -191,7 +184,7 @@ export default function FormAluno() {
                 size='small'
                 select
                 label="Turno"
-                sx={{ width: "47ch", margin: "10px" }}
+                sx={{ width: "47ch", margin: "1%" }}
                 defaultValue={aluno.turno}
                 required={true}
 
@@ -212,7 +205,7 @@ export default function FormAluno() {
                 slotProps={{ inputLabel: { shrink: true } }}
                 size='small'
                 label="Turma"
-                sx={{ width: "20ch", margin: "10px" }}
+                sx={{ width: "20ch", margin: "1%" }}
                 defaultValue={aluno.turma}
             />
             <TextField
@@ -224,7 +217,7 @@ export default function FormAluno() {
                 slotProps={{ inputLabel: { shrink: true } }}
                 size='small'
                 label="Série"
-                sx={{ width: "20ch", margin: "10px" }}
+                sx={{ width: "20ch", margin: "1%" }}
                 defaultValue={aluno.serie}
             />
             <TextField
@@ -235,8 +228,8 @@ export default function FormAluno() {
                 })}
                 slotProps={{ inputLabel: { shrink: true } }}
                 size='small'
-                label="Convênio Médico"
-                sx={{ width: "55ch", margin: "10px" }}
+                label="Convenio Médico"
+                sx={{ width: "27%", margin: "1%" }}
                 defaultValue={aluno.convenioMedico}
             />
 
@@ -250,7 +243,7 @@ export default function FormAluno() {
                     slotProps={{ inputLabel: { shrink: true } }}
                     size='small'
                     label="Status"
-                    sx={{ width: "38ch", margin: "10px" }}
+                    sx={{ width: "38ch", margin: "1%" }}
                     defaultValue={aluno.status}
                     required={true}
                     

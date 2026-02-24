@@ -1,6 +1,6 @@
 import { Link } from '@mui/material'
 import React, { useEffect, useState } from "react";
-import { useApi  } from "@/application/api/api";
+import { useApi } from "@/application/api/api";
 import { IconeEditar, IconeExcluir } from '@/icon';
 import { useApiResposnavel } from '@/application/api/apiResponsavel/useApiResponsavel';
 
@@ -9,13 +9,18 @@ export interface IResponsavel {
     nome: string,
     parentesco: String,
     editar?: React.ReactNode,
-    excluir?: React.ReactNode, 
+    excluir?: React.ReactNode,
 }
 
 export const useResponsavel = () => {
 
     const [rows, setRows] = useState<IResponsavel[]>([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [filtrarNome, setFiltrarNome] = useState<string>();
+
+    useEffect(() => {
+        buscarResponsavel()
+    }, [filtrarNome])
 
     const cols = [
         "Id",
@@ -27,7 +32,7 @@ export const useResponsavel = () => {
 
     const {
         listarResponsavel
-    } = useApiResposnavel ()
+    } = useApiResposnavel()
 
     const converteToResponsavel = (array: IResponsavel[]) => {
         const novoArray: IResponsavel[] = []
@@ -45,23 +50,26 @@ export const useResponsavel = () => {
             }
             novoArray.push(novoResponsavel)
         })
-        return novoArray
+        if (filtrarNome) {
+            console.log("TTTTTT" , novoArray)
+            return novoArray.filter(novoArray => novoArray.nome.toLowerCase().includes(filtrarNome.toLowerCase()))            
+        } else {
+            console.log("çççççç" , filtrarNome)
+            return novoArray            
+        }
+
     }
 
     const buscarResponsavel = async () => {
         setIsLoading(true)
 
         const data = await listarResponsavel()
-        if(data){
+        if (data) {
             setRows(converteToResponsavel(data))
         }
-        console.log("*****bbb", data)
         setIsLoading(false)
     }
 
-    useEffect(() => {
-        buscarResponsavel()
-    }, [])
 
     return {
         data: {
@@ -70,7 +78,8 @@ export const useResponsavel = () => {
             isLoading
         },
         action: {
-            setRows,            
+            setRows,
+            setFiltrarNome,
         }
     }
 }

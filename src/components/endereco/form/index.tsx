@@ -32,8 +32,8 @@ export default function FormEndereco({
 
     return (
         <>
-            <Box sx={{ width: 1 }}>
-                <Typography sx={{ bgcolor: "#cccc", textAlign: "center", width: 1 }}>Endereço</Typography>
+            <Box sx={{ width: "100%", margin:"0.5%" }}>
+                <Typography sx={{ bgcolor: "#cccc", textAlign: "center", width: "99%" }}>Endereço</Typography>
                 <TextField
                     onChange={(e) => setEndereco((endereco) => {
                         return {
@@ -44,7 +44,7 @@ export default function FormEndereco({
                     size='small'
                     required={true}
                     label="Logradouro "
-                    style={{ width: "55ch", margin: "10px" }}
+                    style={{ width: "45%", margin: "1%" }}
                     defaultValue={endereco.logradouro}
                     type='string'
                 />
@@ -57,7 +57,7 @@ export default function FormEndereco({
                     slotProps={{ inputLabel: { shrink: true } }}
                     size='small'
                     label="Númeroo"
-                    style={{ width: "10ch", margin: "10px" }}
+                    style={{ width: "19%" ,margin: "1%" }}
                     defaultValue={endereco.numero}
                 />
                 <TextField
@@ -69,7 +69,7 @@ export default function FormEndereco({
                     slotProps={{ inputLabel: { shrink: true } }}
                     size='small'
                     label="Complemento"
-                    style={{ width: "34ch", margin: "10px" }}
+                    style={{ width: "30%", margin: "1%" }}
                     defaultValue={endereco.complemento}
                 />
                 <TextField
@@ -81,7 +81,7 @@ export default function FormEndereco({
                     slotProps={{ inputLabel: { shrink: true } }}
                     size='small'
                     label="Bairro"
-                    style={{ width: "43ch", margin: "10px" }}
+                    style={{ width: "30%", margin: "1%" }}
                     defaultValue={endereco.bairro}
                 />
                 <TextField
@@ -94,7 +94,7 @@ export default function FormEndereco({
                     size='small'
                     required
                     label="Cep"
-                    style={{ width: "23ch", margin: "10px" }}
+                    style={{ width: "18%", margin: "1%" }}
                     defaultValue={endereco.cep}
                 />
                 <TextField
@@ -107,7 +107,7 @@ export default function FormEndereco({
                     size='small'
                     required
                     label="Cidade"
-                    style={{ width: "65ch", margin: "10px" }}
+                    style={{ width: "37%", margin: "1%" }}
                     defaultValue={endereco.cidade}
                 />
                 <TextField
@@ -120,7 +120,7 @@ export default function FormEndereco({
                     size='small'
                     required
                     label="Estado"
-                    style={{ width: "56ch", margin: "10px" }}
+                    style={{ width: "7%", margin: "1%" }}
                     defaultValue={endereco.estado}
                 />
             </Box>

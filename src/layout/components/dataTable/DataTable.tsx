@@ -12,18 +12,17 @@ import { Load } from '../Load/Load';
 interface IPropsDataTable {
     cols: string[]
     rows: any[]
-    isloading?: boolean
+    isloading?: boolean        
 }
 
 export const DataTable = ({ cols, rows, isloading = false }: IPropsDataTable) => {
     return (
         <>
-        <Box>
-
-        
+        {console.log(cols)}
+        <Box>        
             {!isloading ? (
                 <TableContainer component={Paper} >
-                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <Table size='small' sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead >
                             <TableRow >
                                 {cols?.map((col: any) => (

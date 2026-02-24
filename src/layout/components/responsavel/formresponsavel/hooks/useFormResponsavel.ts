@@ -10,6 +10,7 @@ interface IResponsavel {
     id: number
     nome: string
     parentesco: string
+    cpf: string
     contatos: IFormContato[]
     endereco: IFormEndereco
 }
@@ -43,6 +44,7 @@ export const useFormResponsavel = () => {
 
         id: 0,
         nome: "",
+        cpf: "01221139509",
         parentesco: "",
         endereco: initEndereco,
         contatos: []

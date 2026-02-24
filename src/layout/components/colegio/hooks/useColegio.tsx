@@ -15,6 +15,11 @@ export interface IColegio {
 export const useColegio = () => {
     const [rows, setRows] = useState<IColegio[]>([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [filtrarNome, setFiltrarNome] = useState<string>();
+
+     useEffect(() => {
+        buscarColegio()
+    }, [filtrarNome])
 
     const cols = [
         "Id",
@@ -43,7 +48,12 @@ export const useColegio = () => {
             }
             novoArray.push(novoColegio)
         })
-        return novoArray
+        if(filtrarNome) {
+            return novoArray.filter(novoArray => novoArray.nome.toLowerCase().includes(filtrarNome.toLowerCase()))
+        }else {
+            return novoArray
+        }
+        
     }
     const buscarColegio = async () => {
 
@@ -52,17 +62,10 @@ export const useColegio = () => {
         const data = await listarColegio()
         if(data) {
             setRows(converteToColegio(data))
-            setIsLoading(false)
-        }
-        
-        console.log("*****", data)
-
+            
+        }              
         setIsLoading(false);
-    }
-
-    useEffect(() => {
-        buscarColegio()
-    }, [])
+    }   
 
     return {
         data: {
@@ -72,6 +75,7 @@ export const useColegio = () => {
         },
         action: {
             setRows,
+            setFiltrarNome,
         }
     }
 }

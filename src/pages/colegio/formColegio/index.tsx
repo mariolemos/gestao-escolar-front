@@ -26,17 +26,13 @@ export default function FormColegio() {
 
     return (
         <>
-            <Box sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
+            <Box sx={{width: "100%", margin: "0.5%"
+                
             }} >
-                <Typography variant="h4" component="div" sx={{ flexGrow: 2, textAlign: "center" }}>
-                    Cadastro Colégio
-                </Typography>
+                <Typography variant="h4" color="#fff" sx={{ bgcolor: "#227afdff", textAlign: "center" }}>Cadastro Colégio</Typography>
 
                 <Box sx={{ display: "flex" }}>
-                    
+
                     <TextField
                         onChange={(e) => setColegio((colegio) => {
                             return {
@@ -49,7 +45,7 @@ export default function FormColegio() {
                         label="Nome "
                         style={{ width: "75ch", margin: "10px" }}
                         defaultValue={colegio.nome}
-                        type='string'                    
+                        type='string'
                     />
                     <TextField
                         onChange={(e) => setColegio((colegio) => {
@@ -65,19 +61,8 @@ export default function FormColegio() {
                         type='time'
                     />
                 </Box>
-                <Box sx={{ display: "flex" }}>
-                    <FormEndereco endereco={colegio.endereco} setEndereco={setEndereco} />
-                </Box>
-                <Box sx={{
-                    bgcolor: "#ccc",
-                    textAlign: "center",
-                    height: "35px",
-                    borderRadius: ".5rex",
-                    fontSize: "2.5ch",
-                    marginLeft: "10px",
-                    marginRight: "15px"
-                }}>Contatos</Box>
-                <FormContato contatos={colegio.contatos } setContatos={setContatos} />
+                <FormEndereco endereco={colegio.endereco} setEndereco={setEndereco} />
+                <FormContato contatos={colegio.contatos} setContatos={setContatos} />
                 <Button variant="contained"
                     onClick={registrar}
                     style={{ width: "172ch", margin: "10px", height: "40px" }}

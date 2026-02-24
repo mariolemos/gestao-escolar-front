@@ -57,8 +57,8 @@ export const FormContato = ({
 
     return (
         <>
-            <Box sx={{ width: 1 }}>
-                <Typography sx={{ bgcolor: "#cccc", textAlign: "center", width: 1 }}>Contatos</Typography>
+            <Box sx={{ width: 1, margin:"0.5%" }}>
+                <Typography sx={{ bgcolor: "#cccc", textAlign: "center", width: "98%" }}>Contatos</Typography>
                 <TextField
                     onChange={(e) => setContato((contato) => {
                         return {

@@ -8,7 +8,7 @@ export const useApiAluno = () => {
         GETRequest,
         PUTRequest,
         POSTRequest
-    } = useApi()
+    } = useApi()   
 
     const listarAluno = async () => {
         const { data } = await GETRequest<IAluno[]>("/aluno")
@@ -34,7 +34,7 @@ export const useApiAluno = () => {
         listarAluno,
         atualizarAluno,
         salvarAluno,
-        buscarAlunoPorId
+        buscarAlunoPorId        
     }
 
 }
